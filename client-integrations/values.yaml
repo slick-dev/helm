@@ -1,7 +1,8 @@
 global: 
   env: dev
   secret: sealed-secret
-  aws.access_key_id: ""
+  aws:
+    access_key_id: ""
   kafka:
     brokers: 01.kafka-broker.supplystack.io:9091,02.kafka-broker.supplystack.io:9091,03.kafka-broker.supplystack.io:9091
     schema_registry: https://01.schema-registry.supplystack.io:8081,https://02.schema-registry.supplystack.io:8081,https://03.schema-registry.supplystack.io:8081
