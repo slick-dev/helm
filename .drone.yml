@@ -45,10 +45,10 @@ steps:
   commands:
   - git fetch origin +refs/heads/gh-pages
   - mkdir .cr-index
-  - wget -O .cr-index/index.yaml https://slick-dev.github.io/helm-charts-mdw/index.yaml
+  # - wget -O .cr-index/index.yaml https://slick-dev.github.io/helm-charts-mdw/index.yaml
   - |
     for i in */ ; do
       cr package $i
     done
   - cr upload --owner slick-dev --git-repo helm-charts-mdw --skip-existing
-  - cr index --owner slick-dev --git-repo helm-charts-mdw --charts-repo https://slick-dev.github.io/helm-charts-mdw/ --push
+  - cr index --owner slick-dev --git-repo helm-charts-mdw --charts-repo https://slick-dev.github.io/helm/ --push
