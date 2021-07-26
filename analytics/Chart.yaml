@@ -2,6 +2,7 @@ apiVersion: v2
 name: analytics
 description: SupplyStack - Analytics
 type: application
+icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
 version: 1.0.3
 appVersion: 1.4.2
 
