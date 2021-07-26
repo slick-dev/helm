@@ -13,6 +13,7 @@ api-gateway:
   port: 9190
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/api-gateway
+    tag: ""
 
 booking-service:
   create_service: true
@@ -20,6 +21,7 @@ booking-service:
   mem_limit: 1024Mi
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/booking-service
+    tag: ""
   extra_secrets:
   - KAFKA_PASSWORD
 
@@ -29,6 +31,7 @@ carrier-service:
   port: 9098
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/carrier-service
+    tag: ""
   extra_secrets:
   - KAFKA_PASSWORD
 
@@ -37,6 +40,7 @@ customer-service:
   port: 9095
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/customer-service
+    tag: ""
   extra_secrets:
   - KAFKA_PASSWORD
 
@@ -45,6 +49,7 @@ grid-service:
   port: 9193
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/grid-service
+    tag: ""
   extra_secrets:
   - KAFKA_PASSWORD
 
@@ -53,6 +58,7 @@ notification-service:
   port: 8080
   image: 
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/notification-service
+    tag: ""
   extra_secrets:
   - KAFKA_PASSWORD
   - AUTH0_M2M_CLIENT_SECRET
@@ -62,6 +68,7 @@ onboarding-service:
   port: 9192
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/onboarding-service
+    tag: ""
   extra_secrets:
   - DB_PASSWORD_ANALYTICS
   - KAFKA_PASSWORD
@@ -71,12 +78,14 @@ permission-service:
   port: 9094
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/permission-service
+    tag: ""
 
 scheduler-service:
   create_service: true
   port: 9195
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/scheduler-service
+    tag: ""
   extra_secrets:
   - KAFKA_PASSWORD
   - AUTH0_M2M_CLIENT_SECRET
@@ -87,6 +96,7 @@ template-service:
   port: 9099
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/template-service
+    tag: ""
 
 
 ########## Frontend ##########
@@ -100,4 +110,5 @@ frontend:
   fsgroup: 101
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/frontend
+    tag: ""
 
