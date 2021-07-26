@@ -1,8 +1,0 @@
-env: dev
-notification_service:
-  name: notification-service
-  image:
-    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/notification-service
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
-

@@ -1,7 +1,0 @@
-apiVersion: v2
-name: slotbooking
-description: SupplyStack - Slotbooking
-type: application
-icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
-version: 1.0.19
-
