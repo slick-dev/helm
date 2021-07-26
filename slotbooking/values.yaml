@@ -1,6 +1,8 @@
 global: 
   env: dev
   secret: sealed-secret
+  serviceaccount:
+    aws_role_arn: ""
   ingress_service: frontend
   production_url: app.timeslotbooking.supplystack.com
   enable_tracing: false
