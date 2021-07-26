@@ -18,11 +18,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ $service }}
-  {{- if or ( eq $.Values.global.env "staging" ) ( eq $.Values.global.env "prod" ) }}
   replicas: {{ $config.replicas | default 2 }}
-  {{- else }}
-  replicas: {{ $config.replicas | default 1 }}
-  {{- end }}
   template:
     metadata:
       annotations:
