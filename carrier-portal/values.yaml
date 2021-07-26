@@ -1,5 +1,7 @@
 env: dev
 secret: sealed-secret
+serviceaccount:
+  aws_role_arn: ""
 
 portal:
   name: portal
