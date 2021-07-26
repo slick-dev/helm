@@ -12,14 +12,14 @@ global:
 ########## JAVA Services ##########
 api-hub-backend:
   image:
-    tag: ""
+    tag: replaceme
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/api_hub_backend
   create_service: true
   port: 8080
 
 executor:
   image:
-    tag: ""
+    tag: replaceme
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/executor
   create_service: false
   extra_secrets:
@@ -29,7 +29,7 @@ executor:
 
 internal-processor:
   image:
-    tag: ""
+    tag: replaceme
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/internal_processor
   create_service: true
   create_ingress: true
@@ -38,7 +38,7 @@ internal-processor:
 
 standard-processor:
   image:
-    tag: ""
+    tag: replaceme
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/standard_processor
   create_service: true
   create_ingress: true
@@ -48,7 +48,7 @@ standard-processor:
 
 ticket-finalizer:
   image:
-    tag: ""
+    tag: replaceme
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/ticket_finalizer
   create_service: false
   port: 8080
