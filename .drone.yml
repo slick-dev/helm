@@ -45,7 +45,7 @@ steps:
   commands:
   - git fetch origin +refs/heads/gh-pages
   - mkdir .cr-index
-  # - wget -O .cr-index/index.yaml https://slick-dev.github.io/helm-charts-mdw/index.yaml
+  - wget -O .cr-index/index.yaml https://slick-dev.github.io/helm/index.yaml
   - |
     for i in */ ; do
       cr package $i
