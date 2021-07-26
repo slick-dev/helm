@@ -1,0 +1,46 @@
+global: 
+  env: dev
+  secret: sealed-secret
+  kafka:
+    brokers: 01.kafka-broker.supplystack.io:9091,02.kafka-broker.supplystack.io:9091,03.kafka-broker.supplystack.io:9091
+    schema_registry: https://01.schema-registry.supplystack.io:8081,https://02.schema-registry.supplystack.io:8081,https://03.schema-registry.supplystack.io:8081
+
+########## JAVA Services ##########
+api-hub-backend:
+  create_service: true
+  port: 8080
+
+executor:
+  create_service: false
+  extra_secrets:
+  - SSH_KEY_DHLSD_MOPAR
+  - SSH_KEY_SIEE
+  - AUTH0_M2M_SECRET
+
+internal-processor:
+  create_service: true
+  create_ingress: true
+  ingress_class: nginx-internal
+  port: 8080
+
+standard-processor:
+  create_service: true
+  create_ingress: true
+  ingress_class: nginx
+  ingress_enable_cors: true
+  port: 8080
+
+ticket-finalizer:
+  create_service: false
+  port: 8080
+
+########## Frontend ##########
+frontend:
+  create_service: true
+  create_ingress: true
+  ingress_class: nginx
+  mem_limit: 64Mi
+  port: 8080
+  probe_path: /favicon.ico
+  user: 101
+  group: 101

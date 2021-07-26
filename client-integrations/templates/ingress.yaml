@@ -1,0 +1,33 @@
+{{- range $service, $config := .Values }}
+{{- if and ( ne $service "global" ) ( $config.create_ingress ) }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: {{ $service }}
+  annotations:
+    kubernetes.io/ingress.class: {{ $config.ingress_class }}
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    {{- if $config.ingress_enable_cors }}
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    {{- end}}
+  labels:
+    helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/name: {{ $.Chart.Name }}
+spec:
+  tls:
+  - hosts:
+    - {{ $config.ingress_url }}
+    secretName: le-{{ $.Values.global.env }}-{{ $.Chart.Name }}-{{ $service }}
+  rules:
+  - host: {{ $config.ingress_url }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ $service }}
+          servicePort: http
+---
+{{- end}}
+{{- end}}

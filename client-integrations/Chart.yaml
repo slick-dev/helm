@@ -1,0 +1,6 @@
+apiVersion: v2
+name: client-integrations
+description: SupplyStack - Client-Integrations
+type: application
+version: 0.0.9
+
