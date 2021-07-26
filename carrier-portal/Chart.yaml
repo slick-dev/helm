@@ -2,7 +2,7 @@ apiVersion: v2
 name: carrier-portal
 description: SupplyStack - Carrier-Portal
 type: application
-icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
-version: 1.0.9
+icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+version: 1.0.10
 appVersion: 2.1.0
 

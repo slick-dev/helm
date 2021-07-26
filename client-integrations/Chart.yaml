@@ -2,6 +2,6 @@ apiVersion: v2
 name: client-integrations
 description: SupplyStack - Client-Integrations
 type: application
-icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
-version: 1.0.0
+icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+version: 1.0.1
 
