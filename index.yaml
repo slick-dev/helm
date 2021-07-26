@@ -48,6 +48,17 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/cint-1.0.13/cint-1.0.13.tgz
     version: 1.0.13
+  client-integrations:
+  - apiVersion: v2
+    created: "2021-07-26T12:36:41.86494528Z"
+    description: SupplyStack - Client-Integrations
+    digest: 4feff399ca121a6710b8716ae32fb8f2780d05b3462642021e3dc422a6b68eed
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: client-integrations
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/client-integrations-1.0.0/client-integrations-1.0.0.tgz
+    version: 1.0.0
   controltower:
   - apiVersion: v2
     created: "2021-07-26T11:51:42.482580826Z"
@@ -82,4 +93,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-07-26T11:51:42.835357865Z"
+generated: "2021-07-26T12:36:42.499420591Z"
