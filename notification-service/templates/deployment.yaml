@@ -36,6 +36,15 @@ spec:
             topologyKey: failure-domain.beta.kubernetes.io/zone
       {{- end }}
       {{- if ne .Values.env "prod" }}
+      {{- if eq .Values.platform "arm64" }}
+      nodeSelector:
+        lifecycle: Ec2Spot-graviton
+      tolerations:
+      - key: spotInstanceArm
+        operator: Equal
+        value: tolerate
+        effect: NoSchedule
+      {{- else }}
       nodeSelector:
         lifecycle: Ec2Spot-m4-m5
       tolerations:
@@ -43,6 +52,7 @@ spec:
         operator: Equal
         value: tolerate
         effect: NoSchedule
+      {{- end }}
       {{- end }}
       serviceAccountName: {{ .Chart.Name }}
       securityContext:

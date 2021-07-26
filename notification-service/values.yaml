@@ -1,4 +1,5 @@
 env: dev
+platform: amd64
 notification_service:
   name: notification-service
   image:
