@@ -50,5 +50,5 @@ steps:
     for i in */ ; do
       cr package $i
     done
-  - cr upload --owner slick-dev --git-repo helm-charts-mdw --skip-existing
-  - cr index --owner slick-dev --git-repo helm-charts-mdw --charts-repo https://slick-dev.github.io/helm/ --push
+  - cr upload --owner slick-dev --git-repo helm --skip-existing
+  - cr index --owner slick-dev --git-repo helm --charts-repo https://slick-dev.github.io/helm/ --push
