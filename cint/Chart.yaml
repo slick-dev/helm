@@ -3,6 +3,6 @@ name: cint
 description: SupplyStack - Carrier-Integrations
 type: application
 icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
-version: 1.0.12
+version: 1.0.13
 appVersion: 2.1.0-2586
 

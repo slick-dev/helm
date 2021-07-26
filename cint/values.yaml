@@ -1,6 +1,7 @@
 global: 
   env: dev
   enable_tracing: false
+  platform: amd64
   secret: sealed-secret
   ingress_service: cint-service
   legacy_prod_url: carrierportal.slickss.io
