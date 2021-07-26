@@ -1,0 +1,30 @@
+env: dev
+secret: sealed-secret
+
+api_gateway:
+  name: api-gateway
+  service_name_override: api-gateway-an
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/analytics/api-gateway-an
+    tag: ""
+portal:
+  name: portal
+  image: 
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/analytics/portal
+    tag: ""
+analytics_service:
+  name: analytics-service
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/analytics/analytics-service
+    tag: ""
+
+slotbooking_analytics:
+  name: slotbooking-analytics
+  # service_name_override: analytics-slotbooking-service
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/analytics/analytics-slotbooking-service
+    tag: ""
+
+
+
+

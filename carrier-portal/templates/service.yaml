@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    consul.hashicorp.com/service-sync: "true"
+    consul.hashicorp.com/service-name: {{ .Chart.Name }}
+    {{- if eq .Values.env "prod" }}
+    consul.hashicorp.com/service-meta-url: {{ .Chart.Name }}-service.supplystack.com
+    {{- else }}
+    consul.hashicorp.com/service-meta-url: {{ .Chart.Name }}-service.{{ .Values.env }}.supplystack.com
+    {{- end }}
+    consul.hashicorp.com/service-meta-customer: supplystack
+    consul.hashicorp.com/service-meta-env: {{ .Values.env }}
+    consul.hashicorp.com/service-meta-source: {{ .Values.service.name }}
+  labels:
+    {{- include "service.labels" . | nindent 4 }}
+  name: {{ .Values.service.service_name_override }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: {{ .Values.service.name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    consul.hashicorp.com/service-sync: "true"
+    consul.hashicorp.com/service-name: {{ .Chart.Name }}
+    {{- if eq .Values.env "prod" }}
+    consul.hashicorp.com/service-meta-url: {{ .Chart.Name }}.supplystack.com
+    {{- else }}
+    consul.hashicorp.com/service-meta-url: {{ .Chart.Name }}.{{ .Values.env }}.supplystack.com
+    {{- end }}
+    consul.hashicorp.com/service-meta-customer: supplystack
+    consul.hashicorp.com/service-meta-env: {{ .Values.env }}
+    consul.hashicorp.com/service-meta-source: {{ .Values.portal.name }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
+  name: {{ .Values.portal.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: {{ .Values.portal.name }}

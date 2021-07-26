@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.notification_service.name }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    consul.hashicorp.com/service-sync: "true"
+    consul.hashicorp.com/service-name: {{ .Values.notification_service.name }}
+    {{- if eq .Values.env "prod" }}
+    consul.hashicorp.com/service-meta-url: {{ .Chart.Name }}.supplystack.com
+    {{- else }}
+    consul.hashicorp.com/service-meta-url: {{ .Chart.Name }}.{{ .Values.env }}.supplystack.com
+    {{- end }}
+    consul.hashicorp.com/service-meta-customer: supplystack
+    consul.hashicorp.com/service-meta-env: {{ .Values.env }}
+  labels:
+    {{- include "notification-service.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ .Values.notification_service.name }}

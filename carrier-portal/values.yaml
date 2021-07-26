@@ -1,0 +1,18 @@
+env: dev
+secret: sealed-secret
+
+portal:
+  name: portal
+  image: 
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/carrier-portal/carrier-portal-ui
+    tag: ""
+service:
+  name: service
+  enable_tracing: false
+  service_name_override: carrier-service
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/carrier-portal/carrier-service
+    tag: ""
+
+
+

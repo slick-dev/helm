@@ -1,0 +1,7 @@
+apiVersion: v2
+name: carrier-portal
+description: SupplyStack - Carrier-Portal
+type: application
+version: 1.0.8
+appVersion: 2.1.0
+

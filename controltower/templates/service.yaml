@@ -1,0 +1,42 @@
+{{- range $service, $config := .Values }}
+{{- if or ( eq $service "express" ) ( eq $service "socket" ) }}
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: {{ $service }}
+  labels:
+    helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/name: {{ $service }}
+  annotations:
+    {{- if eq $service $.Values.global.ingress_service }}
+    consul.hashicorp.com/service-sync: "true"
+    consul.hashicorp.com/service-name: {{ $.Chart.Name }}
+    {{- if $.Values.global.url }}
+    consul.hashicorp.com/service-meta-url: {{ $.Values.global.url }}
+    {{- else }}
+    {{- if eq $.Values.global.env "prod" }}
+    consul.hashicorp.com/service-meta-url: {{ $.Chart.Name }}.supplystack.com
+    {{- else }}
+    consul.hashicorp.com/service-meta-url: {{ $.Values.global.customer }}.{{ $.Chart.Name }}.{{ $.Values.global.env }}.supplystack.com
+    {{- end }}
+    {{- end }}
+    consul.hashicorp.com/service-meta-customer: {{ $.Values.global.consul_catalog_customer | default $.Values.global.customer }}
+    consul.hashicorp.com/service-meta-env: {{ $.Values.global.env }}
+    {{- end}}
+spec:
+  ports:
+  {{- if eq $service "express"}}
+  - port: 8080
+  {{- end }}
+  {{- if eq $service "socket"}}
+  - port: 8081
+  {{- end }}
+    targetPort: http
+    name: http
+  selector:
+    app.kubernetes.io/name: {{ $service }}
+---
+{{- end}}
+{{- end}}

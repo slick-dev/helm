@@ -1,0 +1,7 @@
+apiVersion: v2
+name: analytics
+description: SupplyStack - Analytics
+type: application
+version: 1.0.3
+appVersion: 1.4.2
+

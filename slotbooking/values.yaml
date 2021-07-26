@@ -1,0 +1,101 @@
+global: 
+  env: dev
+  secret: sealed-secret
+  ingress_service: frontend
+  production_url: app.timeslotbooking.supplystack.com
+  enable_tracing: false
+
+########## JAVA Services ##########
+api-gateway:
+  create_service: true
+  port: 9190
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/api-gateway
+
+booking-service:
+  create_service: true
+  port: 9096
+  mem_limit: 1024Mi
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/booking-service
+  extra_secrets:
+  - KAFKA_PASSWORD
+
+
+carrier-service:
+  create_service: true
+  port: 9098
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/carrier-service
+  extra_secrets:
+  - KAFKA_PASSWORD
+
+customer-service:
+  create_service: true
+  port: 9095
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/customer-service
+  extra_secrets:
+  - KAFKA_PASSWORD
+
+grid-service:
+  create_service: true
+  port: 9193
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/grid-service
+  extra_secrets:
+  - KAFKA_PASSWORD
+
+notification-service:
+  create_service: true
+  port: 8080
+  image: 
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/notification-service
+  extra_secrets:
+  - KAFKA_PASSWORD
+  - AUTH0_M2M_CLIENT_SECRET
+
+onboarding-service:
+  create_service: true
+  port: 9192
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/onboarding-service
+  extra_secrets:
+  - DB_PASSWORD_ANALYTICS
+  - KAFKA_PASSWORD
+
+permission-service:
+  create_service: true
+  port: 9094
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/permission-service
+
+scheduler-service:
+  create_service: true
+  port: 9195
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/scheduler-service
+  extra_secrets:
+  - KAFKA_PASSWORD
+  - AUTH0_M2M_CLIENT_SECRET
+  - ZEEBE_CLIENT_SECRET
+
+template-service:
+  create_service: true
+  port: 9099
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/template-service
+
+
+########## Frontend ##########
+frontend:
+  create_service: true
+  mem_limit: 64Mi
+  port: 8080
+  probe_path: /favicon.ico
+  user: 101
+  group: 101
+  fsgroup: 101
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/frontend
+
