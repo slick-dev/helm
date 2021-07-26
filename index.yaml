@@ -1,0 +1,85 @@
+apiVersion: v1
+entries:
+  activity-service:
+  - apiVersion: v2
+    appVersion: 1.1.0
+    created: "2021-07-26T11:51:41.735419047Z"
+    description: SupplyStack - Activity-Service
+    digest: 0079f9268751ebf38e40bd3e368072c640d75da07c3e67eb5fa4571c0d579560
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: activity-service
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/activity-service-1.0.6/activity-service-1.0.6.tgz
+    version: 1.0.6
+  analytics:
+  - apiVersion: v2
+    appVersion: 1.4.2
+    created: "2021-07-26T11:51:41.917589326Z"
+    description: SupplyStack - Analytics
+    digest: fff3c02241eb77f0ece7f8ae067774447e8cc3fdc9b33c55c3943f89c4dffc29
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: analytics
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/analytics-1.0.3/analytics-1.0.3.tgz
+    version: 1.0.3
+  carrier-portal:
+  - apiVersion: v2
+    appVersion: 2.1.0
+    created: "2021-07-26T11:51:42.099184372Z"
+    description: SupplyStack - Carrier-Portal
+    digest: d76e933f6ab9e89ae526dc02b3142330778546db4eb79bcd6bf191fc434ef12f
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: carrier-portal
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/carrier-portal-1.0.9/carrier-portal-1.0.9.tgz
+    version: 1.0.9
+  cint:
+  - apiVersion: v2
+    appVersion: 2.1.0-2586
+    created: "2021-07-26T11:51:42.292517298Z"
+    description: SupplyStack - Carrier-Integrations
+    digest: 66b104b6e06136478df24c4b395225272fd168db8b2b8b77e603a292ffc8dbad
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: cint
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/cint-1.0.13/cint-1.0.13.tgz
+    version: 1.0.13
+  controltower:
+  - apiVersion: v2
+    created: "2021-07-26T11:51:42.482580826Z"
+    description: SupplyStack - Controltower
+    digest: b892632612d921ecb9691a7a3c45243c89ad0c4c3fe01ea498b832dfb2f03b5c
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: controltower
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/controltower-1.0.7/controltower-1.0.7.tgz
+    version: 1.0.7
+  notification-service:
+  - apiVersion: v2
+    appVersion: 1.3.0
+    created: "2021-07-26T11:51:42.649429153Z"
+    description: SupplyStack - Notification-Service
+    digest: c7f05bf27202fbc31a6a2fdca61dc9267f561752a94ddc6749de20645617a9ce
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: notification-service
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/notification-service-1.0.3/notification-service-1.0.3.tgz
+    version: 1.0.3
+  slotbooking:
+  - apiVersion: v2
+    created: "2021-07-26T11:51:42.835341145Z"
+    description: SupplyStack - Slotbooking
+    digest: 48d339cea3087f7be976d7e53376dce9e82998ee6a8ce54e026d82c116251366
+    icon: https://slick-dev.github.io/helm-charts-mdw/icons/supplystack.jpg
+    name: slotbooking
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
+    version: 1.0.19
+generated: "2021-07-26T11:51:42.835357865Z"
