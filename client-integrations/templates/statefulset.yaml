@@ -1,0 +1,142 @@
+
+{{- range $service, $config := .Values }}
+{{- if ne $service "global" }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: {{ $service }}
+  labels:
+    helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/version: {{ $config.image.tag }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/name: {{ $service }}
+    app.kubernetes.io/part-of: {{ $.Chart.Name }}
+spec:
+  podManagementPolicy: Parallel
+  serviceName: {{ $service }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $service }}
+  replicas: {{ $config.replicas | default 2 }}
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: 'false'
+        {{- if eq $service "frontend" }}
+        fluentbit.io/parser: nginx
+        {{- end }}
+        ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}'
+        ad.datadoghq.com/{{ $service }}.logs: '[{"service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}]'
+        supplystack.io/customer: supplystack
+        supplystack.io/env: {{ $.Values.global.env }}
+      labels:
+        app.kubernetes.io/name: {{ $service }}
+        app.kubernetes.io/part-of: {{ $.Chart.Name }}
+    spec:
+      {{- if eq $.Values.global.env "prod" }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - {{ $service }}
+            topologyKey: failure-domain.beta.kubernetes.io/zone
+      {{- end }}
+      serviceAccountName: {{ $.Chart.Name }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: {{ $config.user | default 65534 }}
+        runAsGroup: {{ $config.group | default 65534 }}
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      {{- if ne $.Values.global.env "prod" }}
+      nodeSelector:
+        lifecycle: Ec2Spot-m4-m5
+      tolerations:
+      - key: spotInstance
+        operator: Equal
+        value: tolerate
+        effect: NoSchedule
+      {{- end }}
+      containers:
+      - name: {{ $service }}
+        image: {{ $config.image.repository }}:{{ $config.image.tag }}
+        securityContext:
+          allowPrivilegeEscalation: false
+        {{- if $config.create_service }}
+        ports:
+        - name: http
+          containerPort: {{ $config.port }}
+        {{- end }}
+        env:
+        {{- if ne $service "frontend" }}
+        - name: SPRING_PROFILES_ACTIVE
+          value: int{{ $.Values.global.env }}
+        {{- end }}
+        {{- if ne $service "frontend" }}
+        - name: AWS_ACCESS_KEY_ID
+          value: {{ $.Values.global.aws.access_key_id }}
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sealed-secret
+              key: AWS_SECRET_ACCESS_KEY
+        - name: DB_DATASOURCE_URL
+          value: {{ $.Values.global.db.datasource_url }}
+        - name: DB_USERNAME
+          value: {{ $.Values.global.db.username }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: DB_PASSWORD
+        - name: KAFKA_BROKERS
+          value: {{ $.Values.global.kafka.brokers }}
+        - name: KAFKA_SCHEMA_REGISTRY
+          value: {{ $.Values.global.kafka.schema_registry }}
+        - name: KAFKA_USERNAME
+          value: {{ $.Values.global.kafka.username }}
+        - name: KAFKA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sealed-secret
+              key: KAFKA_PASSWORD
+        {{- end }}
+        {{- range $config.extra_secrets }}
+        - name: {{ . }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: {{ . }}
+        {{- end }}
+        {{- range $config.extra_env }}
+        - name: {{ .name }}
+          value: {{ .value }}
+        {{- end }}
+        resources:
+          requests:
+            cpu: 100m
+            memory: {{ $config.mem_limit | default "1024Mi" }}
+          limits:
+            memory: {{ $config.mem_limit | default "1024Mi" }}
+        readinessProbe:
+          httpGet:
+            path: {{ $config.probe_path | default "/actuator/health" }}
+            port: 8080
+        livenessProbe:
+          httpGet:
+            path: {{ $config.probe_path | default "/actuator/health" }}
+            port: 8080
+          {{- if eq $.Values.global.env "prod" }}
+          initialDelaySeconds: 300
+          {{- else }}
+          initialDelaySeconds: 600
+          {{- end }}
+
+---
+{{- end}}
+{{- end}}

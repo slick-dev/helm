@@ -1,0 +1,68 @@
+global: 
+  env: dev
+  secret: sealed-secret
+  aws:
+    access_key_id: ""
+  db:
+    datasource_url: ""
+  kafka:
+    brokers: 01.kafka-broker.supplystack.io:9091,02.kafka-broker.supplystack.io:9091,03.kafka-broker.supplystack.io:9091
+    schema_registry: https://01.schema-registry.supplystack.io:8081,https://02.schema-registry.supplystack.io:8081,https://03.schema-registry.supplystack.io:8081
+
+########## JAVA Services ##########
+api-hub-backend:
+  image:
+    tag: replaceme
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/api_hub_backend
+  create_service: true
+  port: 8080
+
+executor:
+  image:
+    tag: replaceme
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/executor
+  create_service: false
+  extra_secrets:
+  - SSH_KEY_DHLSD_MOPAR
+  - SSH_KEY_SIEE
+  - AUTH0_M2M_SECRET
+
+internal-processor:
+  image:
+    tag: replaceme
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/internal_processor
+  create_service: true
+  create_ingress: true
+  ingress_class: nginx-internal
+  port: 8080
+
+standard-processor:
+  image:
+    tag: replaceme
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/standard_processor
+  create_service: true
+  create_ingress: true
+  ingress_class: nginx
+  ingress_enable_cors: true
+  port: 8080
+
+ticket-finalizer:
+  image:
+    tag: replaceme
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/ticket_finalizer
+  create_service: false
+  port: 8080
+
+########## Frontend ##########
+frontend:
+  image:
+    tag: develop-1989
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/api_hub_frontend
+  create_service: true
+  create_ingress: true
+  ingress_class: nginx
+  mem_limit: 64Mi
+  port: 8080
+  probe_path: /favicon.ico
+  user: 101
+  group: 101
