@@ -157,9 +157,17 @@ spec:
         resources:
           requests:
             cpu: 100m
+            {{- if eq $.Values.global.env "dev" }}
+            memory: {{ $config.mem_limit | default "512Mi" }}
+            {{- else }}
             memory: {{ $config.mem_limit | default "1024Mi" }}
+            {{- end }}
           limits:
+            {{- if eq $.Values.global.env "dev" }}
+            memory: {{ $config.mem_limit | default "512Mi" }}
+            {{- else }}
             memory: {{ $config.mem_limit | default "1024Mi" }}
+            {{- end }}
         readinessProbe:
           httpGet:
             path: /api/health
