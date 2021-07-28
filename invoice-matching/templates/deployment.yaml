@@ -132,7 +132,7 @@ spec:
         {{- end }}
         {{- range $config.extra_env }}
         - name: {{ .name }}
-          value: {{ .value }}
+          value: "{{ .value }}"
         {{- end }}
         resources:
           requests:
