@@ -1,0 +1,7 @@
+apiVersion: v2
+name: invoice-matching
+description: SupplyStack - Invoice-Matching
+type: application
+icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+version: 0.0.1
+
