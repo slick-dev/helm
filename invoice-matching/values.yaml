@@ -1,0 +1,61 @@
+global: 
+  env: dev
+  secret: sealed-secret
+  serviceaccount:
+    aws_role_arn: ""
+  ingress_service: frontend
+  enable_tracing: false
+
+########## JAVA Services ##########
+api-gateway-im:
+  create_service: true
+  port: 6005
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/invoice-matching/api-gateway-im
+    tag: replaceme
+
+invoice-matching-integration-service:
+  create_service: true
+  port: 8080
+  mem_limit: 1024Mi
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/invoice-matching/invoice-matching-integration-service
+    tag: replaceme
+  extra_env:
+  - name: SERVER_PORT
+    value: "8080"
+
+notification-service:
+  create_service: true
+  port: 8080
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/invoice-matching/notification-service
+    tag: replaceme
+  extra_env:
+  - name: SERVER_PORT
+    value: "8080"
+
+invoice-matching-service:
+  create_service: true
+  port: 6007
+  mem_limit: 1024Mi
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/invoice-matching/invoice-matching-service
+    tag: replaceme
+  extra_env:
+  - name: SERVER_PORT
+    value: "6007"
+
+########## Frontend ##########
+frontend:
+  create_service: true
+  mem_limit: 64Mi
+  port: 8080
+  probe_path: /favicon.ico
+  user: 101
+  group: 101
+  fsgroup: 101
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/invoice-matching/portal
+    tag: replaceme
+

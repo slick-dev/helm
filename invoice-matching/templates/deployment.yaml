@@ -1,0 +1,154 @@
+
+{{- range $service, $config := .Values }}
+{{- if ne $service "global" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: {{ $service }}
+  labels:
+    helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/version: {{ $config.image.tag }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/name: {{ $service }}
+    app.kubernetes.io/part-of: {{ $.Chart.Name }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $service }}
+  {{- if eq $.Values.global.env "prod" }}
+  replicas: {{ $config.replicas | default 2 }}
+  {{- else }}
+  replicas: {{ $config.replicas | default 1 }}
+  {{- end }}
+  template:
+    metadata:
+      annotations:
+        {{- if eq $service "frontend" }}
+        fluentbit.io/parser: nginx
+        {{- end }}
+        prometheus.io/scrape: 'false'
+        ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}'
+        ad.datadoghq.com/{{ $service }}.logs: '[{"service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}]'
+      labels:
+        app.kubernetes.io/name: {{ $service }}
+    spec:
+      {{- if eq $.Values.global.env "prod" }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - {{ $service }}
+            topologyKey: failure-domain.beta.kubernetes.io/zone
+      {{- end }}
+      serviceAccountName: {{ $.Chart.Name }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: {{ $config.user | default 65534 }}
+        runAsGroup: {{ $config.group | default 65534 }}
+        fsGroup: {{ $config.fsgroup | default 65534 }}
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      {{- if ne $.Values.global.env "prod" }}
+      nodeSelector:
+        lifecycle: Ec2Spot-m4-m5
+      tolerations:
+      - key: spotInstance
+        operator: Equal
+        value: tolerate
+        effect: NoSchedule
+      {{- end }}
+      containers:
+      - name: {{ $service }}
+        image: {{ $config.image.repository }}:{{ $config.image.tag }}
+        securityContext:
+          allowPrivilegeEscalation: false
+        {{- if $config.create_service }}
+        ports:
+        - name: http
+          containerPort: {{ $config.port }}
+        {{- end }}
+        env:
+        - name: CONSUL_ACL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: CONSUL_ACL_TOKEN
+        {{- if ne $service "frontend" }}
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ $.Values.global.env }}
+        - name: ABLY_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: ABLY_SECRET_KEY
+        - name: KAFKA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: KAFKA_PASSWORD
+        {{- end }}
+        - name: CONSUL_HOST
+          value: {{ "consul-redirector.consul" }}
+        {{- if eq $service "frontend" }}
+        - name: DIST_FOLDER
+          value: dist/apps/{{ $.Chart.Name }}
+        - name: STAGE
+          value: {{ $.Values.global.env }}
+        - name: CONTEXT
+          value: {{ $.Chart.Name }}
+        {{- end }}
+        {{- if or ( eq $service "invoice-matching-integration-service" ) ( eq $service "invoice-matching-service" ) }}
+        - name: ZEEBE_WORKFLOW_PREFIX
+          value: {{ $.Values.global.env }}-{{ $.Chart.Name }}
+        - name: ZEEBE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: ZEEBE_CLIENT_SECRET  
+        {{- end }}
+        {{- if and ( ne $service "frontend" ) ( $.Values.global.enable_tracing ) }}
+        - name: JAVA_TOOL_OPTIONS
+          value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.name={{ $.Values.global.env }}-{{ $.Chart.Name }}-{{ $service }}
+        - name: OTEL_METRICS_EXPORTER
+          value: none
+        - name: OTEL_TRACES_EXPORTER
+          value: jaeger
+        - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+          value: http://jaeger-collector.jaeger:14250
+        {{- end }}
+        {{- range $config.extra_secrets }}
+        - name: {{ . }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: {{ . }}
+        {{- end }}
+        {{- range $config.extra_env }}
+        - name: {{ .name }}
+          value: {{ .value }}
+        {{- end }}
+        resources:
+          requests:
+            cpu: 100m
+            memory: {{ $config.mem_limit | default "512Mi" }}
+          limits:
+            memory: {{ $config.mem_limit | default "512Mi" }}
+        readinessProbe:
+          httpGet:
+            path: {{ $config.probe_path | default "/actuator/health" }}
+            port: {{ $config.port }}
+        livenessProbe:
+          httpGet:
+            path: {{ $config.probe_path | default "/actuator/health" }}
+            port: {{ $config.port }}
+          initialDelaySeconds: 300
+---
+{{- end}}
+{{- end}}
