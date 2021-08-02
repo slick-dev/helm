@@ -138,11 +138,11 @@ spec:
             memory: {{ $config.mem_limit | default "512Mi" }}
         readinessProbe:
           httpGet:
-            path: {{ $config.probe_path | default "/actuator/health" }}
+            path: {{ $config.readiness_probe_path | default "/actuator/health" }}
             port: {{ $config.port }}
         livenessProbe:
           httpGet:
-            path: {{ $config.probe_path | default "/actuator/health" }}
+            path: {{ $config.liveness_probe_path | default "/actuator/health" }}
             port: {{ $config.port }}
           initialDelaySeconds: 600
 ---

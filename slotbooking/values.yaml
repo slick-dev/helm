@@ -83,6 +83,8 @@ permission-service:
 scheduler-service:
   create_service: true
   port: 9195
+  readiness_probe_path: /actuator/health/readiness
+  liveness_probe_path: /actuator/health/liveness
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/scheduler-service
     tag: replaceme
@@ -104,7 +106,8 @@ frontend:
   create_service: true
   mem_limit: 64Mi
   port: 8080
-  probe_path: /favicon.ico
+  readiness_probe_path: /favicon.ico
+  liveness_probe_path: /favicon.ico
   user: 101
   group: 101
   fsgroup: 101
