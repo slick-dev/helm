@@ -45,6 +45,8 @@ standard-processor:
   ingress_class: nginx
   ingress_enable_cors: true
   port: 8080
+  extra_secrets:
+  - AUTH0_M2M_SECRET
 
 ticket-finalizer:
   image:
