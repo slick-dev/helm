@@ -64,6 +64,12 @@ dpd-at-service:
   extra_secrets:
   - DB_DPDAT_PASSWORD
 
+dpd-be-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/dpd-be-service
+  extra_secrets:
+    - DB_DPDBE_PASSWORD
+
 dpd-ch-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/dpd-ch-service
