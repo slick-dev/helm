@@ -119,9 +119,9 @@ spec:
         - name: OTEL_METRICS_EXPORTER
           value: none
         - name: OTEL_TRACES_EXPORTER
-          value: jaeger
-        - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-          value: http://jaeger-collector.jaeger:14250
+          value: otlp
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://tempo-tempo-distributed-distributor.prod-tempo:4317
         {{- end }}
         {{- range $config.extra_secrets }}
         - name: {{ . }}
