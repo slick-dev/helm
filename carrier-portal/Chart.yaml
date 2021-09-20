@@ -3,6 +3,6 @@ name: carrier-portal
 description: SupplyStack - Carrier-Portal
 type: application
 icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
-version: 1.0.10
+version: 1.0.11
 appVersion: 2.1.0
 

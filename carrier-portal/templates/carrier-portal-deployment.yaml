@@ -7,9 +7,9 @@ metadata:
     {{- include "portal.labels" . | nindent 4 }}
 spec:
   {{- if eq .Values.env "prod" }}
-  replicas: 2
+  replicas: {{ .Values.portal.replicas | default 2 }}
   {{- else }}
-  replicas: 1
+  replicas: {{ .Values.portal.replicas | default 1 }}
   {{- end }}
   selector:
     matchLabels:
