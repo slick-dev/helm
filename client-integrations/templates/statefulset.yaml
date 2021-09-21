@@ -73,6 +73,18 @@ spec:
           containerPort: {{ $config.port }}
         {{- end }}
         env:
+        {{- if and ( ne $service "frontend" ) ( $.Values.global.enable_tracing ) }}
+        - name: JAVA_TOOL_OPTIONS
+          value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.name={{ $.Values.global.env }}-{{ $.Chart.Name }}-{{ $service }},job={{ $.Values.global.env }}-{{ $.Chart.Name }}/{{ $service }}
+        - name: OTEL_METRICS_EXPORTER
+          value: none
+        - name: OTEL_TRACES_EXPORTER
+          value: otlp
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: https://otlp-grpc.tempo.internal.supplystack.io
+        {{- end }}
         {{- if ne $service "frontend" }}
         - name: SPRING_PROFILES_ACTIVE
           value: int{{ $.Values.global.env }}
