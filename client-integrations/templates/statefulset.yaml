@@ -23,9 +23,6 @@ spec:
     metadata:
       annotations:
         prometheus.io/scrape: 'false'
-        {{- if eq $service "frontend" }}
-        fluentbit.io/parser: nginx
-        {{- end }}
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}'
         ad.datadoghq.com/{{ $service }}.logs: '[{"service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}]'
         supplystack.io/customer: supplystack
@@ -73,7 +70,7 @@ spec:
           containerPort: {{ $config.port }}
         {{- end }}
         env:
-        {{- if and ( ne $service "frontend" ) ( $.Values.global.enable_tracing ) }}
+        {{- if $.Values.global.enable_tracing }}
         - name: JAVA_TOOL_OPTIONS
           value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
         - name: OTEL_RESOURCE_ATTRIBUTES
@@ -85,11 +82,8 @@ spec:
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: https://otlp-grpc.tempo.internal.supplystack.io
         {{- end }}
-        {{- if ne $service "frontend" }}
         - name: SPRING_PROFILES_ACTIVE
           value: int{{ $.Values.global.env }}
-        {{- end }}
-        {{- if ne $service "frontend" }}
         - name: AWS_ACCESS_KEY_ID
           value: {{ $.Values.global.aws.access_key_id }}
         - name: AWS_SECRET_ACCESS_KEY
@@ -117,7 +111,6 @@ spec:
             secretKeyRef:
               name: sealed-secret
               key: KAFKA_PASSWORD
-        {{- end }}
         {{- range $config.extra_secrets }}
         - name: {{ . }}
           valueFrom:
