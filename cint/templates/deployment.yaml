@@ -24,6 +24,8 @@ spec:
         prometheus.io/scrape: 'false'
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"cint", "source":"{{ $service }}"}'
         ad.datadoghq.com/{{ $service }}.logs: '[{"service":"cint", "source":"{{ $service }}"}]'
+        supplystack.io/customer: supplystack
+        supplystack.io/env: {{ $.Values.global.env }}
       labels:
         app.kubernetes.io/name: {{ $service }}
     spec:
