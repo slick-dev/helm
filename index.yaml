@@ -3,6 +3,17 @@ entries:
   activity-service:
   - apiVersion: v2
     appVersion: 1.1.0
+    created: "2021-09-24T07:25:16.826286502Z"
+    description: SupplyStack - Activity-Service
+    digest: 8db1e7af440d02625b68fb87cc65d7b5b34ad47d5b14d2ab83d400be230b3cac
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: activity-service
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/activity-service-1.0.9/activity-service-1.0.9.tgz
+    version: 1.0.9
+  - apiVersion: v2
+    appVersion: 1.1.0
     created: "2021-07-26T13:43:28.035631695Z"
     description: SupplyStack - Activity-Service
     digest: 8f0764fbd9992bb5129220d305257cb75200d9030a8bc87a00ea08735d585319
@@ -94,9 +105,9 @@ entries:
   cint:
   - apiVersion: v2
     appVersion: 2.1.0-2586
-    created: "2021-09-24T07:25:05.658699446Z"
+    created: "2021-09-24T07:25:17.398700557Z"
     description: SupplyStack - Carrier-Integrations
-    digest: 8234459a122990ab7028911c9596cfe84b5c1eed4a84ca07a4b099412cf30be4
+    digest: d7681d5cdbef8613a02e3b4ea57ddb88bf1ad136506a8c498f259188947e507a
     icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
     name: cint
     type: application
@@ -334,4 +345,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-09-24T07:25:06.686337978Z"
+generated: "2021-09-24T07:25:18.367904787Z"
