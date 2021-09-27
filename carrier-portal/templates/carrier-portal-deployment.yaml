@@ -20,6 +20,7 @@ spec:
         fluentbit.io/parser: nginx
         ad.datadoghq.com/{{ .Values.portal.name }}.logs: '[{"service":"{{ .Chart.Name }}", "source":"{{ .Values.portal.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Chart.Name }}", "source":"{{ .Values.portal.name }}"}'
+        supplystack.io/env: {{ .Values.env }}
         prometheus.io/scrape: "false"
       labels:
         app.kubernetes.io/name: {{ .Values.portal.name }}
