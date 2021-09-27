@@ -20,7 +20,6 @@ spec:
         ad.datadoghq.com/{{ .Values.activity_service.name }}.logs: '[{"service":"{{ .Values.activity_service.name }}", "source":"{{ .Values.activity_service.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Values.activity_service.name }}", "source":"{{ .Values.activity_service.name }}"}'
         prometheus.io/scrape: "false"
-        supplystack.io/customer: supplystack
         supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.activity_service.name }}
