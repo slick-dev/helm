@@ -3,6 +3,6 @@ name: activity-service
 description: SupplyStack - Activity-Service
 type: application
 icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
-version: 1.0.9
+version: 1.0.10
 appVersion: 1.1.0
 
