@@ -3,6 +3,6 @@ name: analytics
 description: SupplyStack - Analytics
 type: application
 icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
-version: 1.0.4
+version: 1.0.5
 appVersion: 1.4.2
 

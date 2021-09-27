@@ -21,6 +21,7 @@ spec:
         ad.datadoghq.com/{{ .Values.portal.name }}.logs: '[{"service":"{{ .Chart.Name }}", "source":"{{ .Values.portal.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Chart.Name }}", "source":"{{ .Values.portal.name }}"}'
         prometheus.io/scrape: "false"
+        supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.portal.name }}
     spec:
