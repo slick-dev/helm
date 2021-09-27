@@ -16,6 +16,7 @@ executor:
     tag: replaceme
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/integrations/executor
   create_service: false
+  mem_limit: 1024Mi
   extra_secrets:
   - SSH_KEY_DHLSD_MOPAR
   - SSH_KEY_SIEE
