@@ -27,6 +27,7 @@ spec:
         {{- if eq $service "frontend" }}
         fluentbit.io/parser: nginx
         {{- end }}
+        supplystack.io/env: {{ $.Values.global.env }}
         prometheus.io/scrape: 'false'
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"slotbooking", "source":"{{ $service }}"}'
         ad.datadoghq.com/{{ $service }}.logs: '[{"service":"slotbooking", "source":"{{ $service }}"}]'
@@ -111,13 +112,13 @@ spec:
         - name: JAVA_TOOL_OPTIONS
           value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
         - name: OTEL_RESOURCE_ATTRIBUTES
-          value: service.name={{ $.Values.global.env }}-slotbooking-{{ $service }}
+          value: service.name={{ $.Values.global.env }}-{{ $.Chart.Name }}-{{ $service }},job={{ $.Values.global.env }}-{{ $.Chart.Name }}/{{ $service }}
         - name: OTEL_METRICS_EXPORTER
           value: none
         - name: OTEL_TRACES_EXPORTER
-          value: jaeger
-        - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-          value: http://jaeger-collector.jaeger:14250
+          value: otlp
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: https://otlp-grpc.tempo.internal.supplystack.io
         {{- end }}
         {{- range $config.extra_secrets }}
         - name: {{ . }}
