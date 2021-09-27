@@ -160,6 +160,17 @@ entries:
   cint:
   - apiVersion: v2
     appVersion: 2.1.0-2586
+    created: "2021-09-27T09:18:50.4429994Z"
+    description: SupplyStack - Carrier-Integrations
+    digest: 0b2c570a1eae4ba46b560141ea6fb60c10d2981125cdf046e49e9a46a373df3b
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: cint
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/cint-1.0.17/cint-1.0.17.tgz
+    version: 1.0.17
+  - apiVersion: v2
+    appVersion: 2.1.0-2586
     created: "2021-09-24T07:25:17.398700557Z"
     description: SupplyStack - Carrier-Integrations
     digest: d7681d5cdbef8613a02e3b4ea57ddb88bf1ad136506a8c498f259188947e507a
@@ -410,4 +421,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-09-27T08:50:17.267945403Z"
+generated: "2021-09-27T09:18:51.304450119Z"
