@@ -28,6 +28,7 @@ spec:
         fluentbit.io/parser: nginx
         {{- end }}
         prometheus.io/scrape: 'false'
+        supplystack.io/env: {{ $.Values.global.env }}
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}'
         ad.datadoghq.com/{{ $service }}.logs: '[{"service":"{{ $.Chart.Name }}", "source":"{{ $service }}"}]'
       labels:
@@ -121,7 +122,7 @@ spec:
         - name: OTEL_TRACES_EXPORTER
           value: otlp
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
-          value: http://tempo-tempo-distributed-distributor.prod-tempo:4317
+          value: https://otlp-grpc.tempo.internal.supplystack.io
         {{- end }}
         {{- range $config.extra_secrets }}
         - name: {{ . }}
