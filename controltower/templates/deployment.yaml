@@ -25,6 +25,8 @@ spec:
     metadata:
       annotations:
         prometheus.io/scrape: 'false'
+        supplystack.io/env: {{ $.Values.global.env }}
+        supplystack.io/customer: {{ $.Values.global.customer }}
         {{- if $.Values.global.datadog }}
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"controltower", "source":"{{ $service }}", 
                                   "customer": "{{ $.Values.global.customer }}"}'
