@@ -20,6 +20,7 @@ spec:
         ad.datadoghq.com/{{ .Values.api_gateway.name }}.logs: '[{"service":"{{ .Chart.Name }}", "source":"{{ .Values.api_gateway.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Chart.Name }}", "source":"{{ .Values.api_gateway.name }}"}'
         prometheus.io/scrape: "false"
+        supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.api_gateway.name }}
     spec:
@@ -58,8 +59,18 @@ spec:
           image: "{{ .Values.api_gateway.image.repository }}:{{ .Values.api_gateway.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: IfNotPresent
           env:
+          {{- if $.Values.enable_tracing }}
           - name: JAVA_TOOL_OPTIONS
-            value: ''
+            value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: service.name={{ $.Values.env }}-{{ $.Chart.Name }}-{{ .Values.api_gateway.name }},job={{ $.Values.env }}-{{ $.Chart.Name }}/{{ .Values.api_gateway.name }}
+          - name: OTEL_METRICS_EXPORTER
+            value: none
+          - name: OTEL_TRACES_EXPORTER
+            value: otlp
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: https://otlp-grpc.tempo.internal.supplystack.io
+          {{- end }}
           - name: SPRING_PROFILES_ACTIVE
             value: {{ .Values.env }}
           - name: CONSUL_ACL_TOKEN
