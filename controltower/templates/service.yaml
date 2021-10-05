@@ -17,7 +17,7 @@ metadata:
     consul.hashicorp.com/service-meta-url: {{ $.Values.global.url }}
     {{- else }}
     {{- if eq $.Values.global.env "prod" }}
-    consul.hashicorp.com/service-meta-url: {{ $.Chart.Name }}.supplystack.com
+    consul.hashicorp.com/service-meta-url: {{ $.Values.global.customer }}.{{ $.Chart.Name }}.supplystack.com
     {{- else }}
     consul.hashicorp.com/service-meta-url: {{ $.Values.global.customer }}.{{ $.Chart.Name }}.{{ $.Values.global.env }}.supplystack.com
     {{- end }}
