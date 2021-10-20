@@ -27,5 +27,8 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: {{ .Values.activity_service.name }}
+          service:
+            name: {{ .Values.activity_service.name }}
+            port:
+              name: http
           servicePort: http
