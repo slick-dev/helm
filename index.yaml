@@ -3,6 +3,17 @@ entries:
   activity-service:
   - apiVersion: v2
     appVersion: 1.1.0
+    created: "2021-10-20T12:24:30.143711722Z"
+    description: SupplyStack - Activity-Service
+    digest: f813023d04c72ec9b0846dd0dabfbcf37c127356ee4527dab20fc8ce03f9a4da
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: activity-service
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/activity-service-1.0.15/activity-service-1.0.15.tgz
+    version: 1.0.15
+  - apiVersion: v2
+    appVersion: 1.1.0
     created: "2021-10-20T12:16:29.832993755Z"
     description: SupplyStack - Activity-Service
     digest: e0cb249ed9bae90eccd834bb9df27e4d204473a363adbcf0a1cc796279b8436e
@@ -588,4 +599,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-10-20T12:16:31.44898769Z"
+generated: "2021-10-20T12:24:31.62757813Z"
