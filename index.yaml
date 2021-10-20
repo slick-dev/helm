@@ -181,6 +181,17 @@ entries:
   carrier-portal:
   - apiVersion: v2
     appVersion: 2.1.0
+    created: "2021-10-20T14:11:10.773907038Z"
+    description: SupplyStack - Carrier-Portal
+    digest: b3e07844febc813df08046169c3cfdbda1711eb1e49c7164a25bedd48e19826b
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: carrier-portal
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/carrier-portal-1.0.14/carrier-portal-1.0.14.tgz
+    version: 1.0.14
+  - apiVersion: v2
+    appVersion: 2.1.0
     created: "2021-10-20T12:00:09.998057239Z"
     description: SupplyStack - Carrier-Portal
     digest: bb45592827d5c0ad56fb27c33cca02da7221cf049106ee0c7738c7cb07a2c7e6
@@ -621,4 +632,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-10-20T14:02:37.06246006Z"
+generated: "2021-10-20T14:11:11.92265903Z"
