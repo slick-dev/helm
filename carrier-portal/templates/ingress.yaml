@@ -29,9 +29,12 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: {{ .Values.portal.name }}
-          servicePort: http
+          service:
+            name: {{ .Values.portal.name }}
+            port:
+              name: http
   {{- if eq .Values.env "prod" }}
   - host: {{ .Chart.Name }}-service.supplystack.com
   {{- else }}
@@ -40,6 +43,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: {{ .Values.service.service_name_override }}
-          servicePort: http
+          service:
+            name: {{ .Values.service.service_name_override }}
+            port:
+              name: http
