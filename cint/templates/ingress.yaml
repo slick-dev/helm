@@ -1,7 +1,7 @@
 
 {{- range $service, $config := .Values }}
 {{- if and ( ne $service "global" ) ( eq $service $.Values.global.ingress_service ) }}
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: {{ $.Release.Namespace }}
