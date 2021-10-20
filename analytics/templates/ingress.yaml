@@ -29,6 +29,9 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: {{ .Values.portal.name }}
-          servicePort: http
+          service:
+            name: {{ .Values.portal.name }}
+            port:
+              name: http
