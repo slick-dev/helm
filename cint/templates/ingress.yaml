@@ -36,17 +36,23 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: {{ $service }}
-          servicePort: http
+          service:
+            name: {{ $service }}
+            port:
+              name: http
   {{- if and ( eq $.Values.global.env "prod" ) ( $.Values.global.legacy_prod_url ) }}
   - host: {{ $.Values.global.legacy_prod_url }}
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: {{ $service }}
-          servicePort: http
+          service:
+            name: {{ $service }}
+            port:
+              name: http
   {{- end }}
 {{- end}}
 {{- end}}
