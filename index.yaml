@@ -248,6 +248,17 @@ entries:
   cint:
   - apiVersion: v2
     appVersion: 2.1.0-2586
+    created: "2021-10-22T09:49:51.965917615Z"
+    description: SupplyStack - Carrier-Integrations
+    digest: 3a96aa063f9bbb09ac6c664b9e13a73568fd86f57b93e5f43a8cba0945c709b3
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: cint
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/cint-1.0.19/cint-1.0.19.tgz
+    version: 1.0.19
+  - apiVersion: v2
+    appVersion: 2.1.0-2586
     created: "2021-10-20T12:00:10.224490525Z"
     description: SupplyStack - Carrier-Integrations
     digest: 3804050f2ebe55eb3fe75f41208d3e6d85b9e44e25633c84b16821d4332d4405
@@ -313,6 +324,16 @@ entries:
     - https://github.com/slick-dev/helm/releases/download/cint-1.0.13/cint-1.0.13.tgz
     version: 1.0.13
   client-integrations:
+  - apiVersion: v2
+    created: "2021-10-22T09:49:52.136422103Z"
+    description: SupplyStack - Client-Integrations
+    digest: 60495378798c4fe9af512650418292f736e0d9fe7554f7fb23ae38fc4dfa2404
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: client-integrations
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/client-integrations-1.0.8/client-integrations-1.0.8.tgz
+    version: 1.0.8
   - apiVersion: v2
     created: "2021-10-20T12:00:10.463440442Z"
     description: SupplyStack - Client-Integrations
@@ -394,6 +415,16 @@ entries:
     - https://github.com/slick-dev/helm/releases/download/client-integrations-1.0.0/client-integrations-1.0.0.tgz
     version: 1.0.0
   controltower:
+  - apiVersion: v2
+    created: "2021-10-22T09:49:52.327065365Z"
+    description: SupplyStack - Controltower
+    digest: 68255d37daf7272f0d273311bffee5ec136d3d01221e4d1105364c35aa292163
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: controltower
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/controltower-1.0.13/controltower-1.0.13.tgz
+    version: 1.0.13
   - apiVersion: v2
     created: "2021-10-20T12:00:10.683745615Z"
     description: SupplyStack - Controltower
@@ -632,4 +663,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-10-20T14:11:11.92265903Z"
+generated: "2021-10-22T09:49:52.877586066Z"
