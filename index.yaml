@@ -487,6 +487,16 @@ entries:
     version: 1.0.7
   invoice-matching:
   - apiVersion: v2
+    created: "2021-10-22T13:03:14.756504588Z"
+    description: SupplyStack - Invoice-Matching
+    digest: df9a793d1707efb7989cbe44b36c2895689d8031930d4b0acfb8a22dc1239dd0
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: invoice-matching
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/invoice-matching-0.0.7/invoice-matching-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
     created: "2021-10-20T12:00:10.870892118Z"
     description: SupplyStack - Invoice-Matching
     digest: 9d5ec062a8f93bec85b240fdb259f9164d4a7da8208eb83b822000b6f00d817d
@@ -549,6 +559,17 @@ entries:
   notification-service:
   - apiVersion: v2
     appVersion: 1.3.0
+    created: "2021-10-22T13:03:14.948299314Z"
+    description: SupplyStack - Notification-Service
+    digest: 4d8e8661a63120d492a90071a3de7335a56121400e64ce86737b0b8930551506
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: notification-service
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/notification-service-1.0.8/notification-service-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
+    appVersion: 1.3.0
     created: "2021-10-20T12:00:11.120241908Z"
     description: SupplyStack - Notification-Service
     digest: 6179ef132f7de0827017451f75696dd4db41dc3d3b578c52889e4e956b4132a9
@@ -603,6 +624,16 @@ entries:
     - https://github.com/slick-dev/helm/releases/download/notification-service-1.0.3/notification-service-1.0.3.tgz
     version: 1.0.3
   slotbooking:
+  - apiVersion: v2
+    created: "2021-10-22T13:03:15.140370536Z"
+    description: SupplyStack - Slotbooking
+    digest: 0e63cca54681ca03fb1ce01ff9d06b56558fa1fa4727bf2d1b4f4d52ce240fe1
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: slotbooking
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.25/slotbooking-1.0.25.tgz
+    version: 1.0.25
   - apiVersion: v2
     created: "2021-10-20T12:00:11.343755673Z"
     description: SupplyStack - Slotbooking
@@ -663,4 +694,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-10-22T09:49:52.877586066Z"
+generated: "2021-10-22T13:03:15.140554024Z"
