@@ -50,11 +50,17 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: express
-          servicePort: http
+          service:
+            name: express
+            port:
+              name: http
       - path: /socket
+        pathType: Prefix
         backend:
-          serviceName: socket
-          servicePort: http
+          service:
+            name: socket
+            port:
+              name: http
 ---
