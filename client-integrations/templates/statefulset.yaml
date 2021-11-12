@@ -78,8 +78,12 @@ spec:
           value: none
         - name: OTEL_TRACES_EXPORTER
           value: otlp
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
-          value: https://otlp-grpc.tempo.internal.supplystack.io
+          value: http://$(HOST_IP):4317
         {{- end }}
         - name: SPRING_PROFILES_ACTIVE
           value: int{{ $.Values.global.env }}
