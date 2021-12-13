@@ -42,6 +42,7 @@ steps:
     - push
     branch:
     - master
+    - patch/*
   commands:
   - git fetch origin +refs/heads/gh-pages
   - mkdir .cr-index
