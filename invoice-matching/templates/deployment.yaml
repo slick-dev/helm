@@ -80,6 +80,8 @@ spec:
               name: {{ $.Values.global.secret }}
               key: CONSUL_ACL_TOKEN
         {{- if ne $service "frontend" }}
+        - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
+          value: "true"
         - name: SPRING_PROFILES_ACTIVE
           value: {{ $.Values.global.env }}
         - name: ABLY_SECRET_KEY
