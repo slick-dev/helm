@@ -522,6 +522,16 @@ entries:
     - https://github.com/slick-dev/helm/releases/download/client-integrations-1.10.0/client-integrations-1.10.0.tgz
     version: 1.10.0
   - apiVersion: v2
+    created: "2021-12-13T11:36:29.13621475Z"
+    description: SupplyStack - Client-Integrations
+    digest: 8899dc3c51e30fd6d963ca869edad7ac7e8dde50130b46fcb1df83b8db15db2e
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: client-integrations
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/client-integrations-1.0.106/client-integrations-1.0.106.tgz
+    version: 1.0.106
+  - apiVersion: v2
     created: "2021-12-13T10:51:20.547735064Z"
     description: SupplyStack - Client-Integrations
     digest: 1c752588bfffe61b43df44afe5614d7b8692b83be7de3a83af5dd8f0dbd617f7
@@ -1024,4 +1034,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-12-13T11:31:12.036958724Z"
+generated: "2021-12-13T11:36:29.820625301Z"
