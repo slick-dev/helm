@@ -69,6 +69,8 @@ spec:
           containerPort: {{ $config.port }}
         {{- end }}
         env:
+        - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
+          value: "true"
         {{- if $.Values.global.enable_tracing }}
         - name: JAVA_TOOL_OPTIONS
           value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'

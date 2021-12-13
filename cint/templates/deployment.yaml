@@ -78,6 +78,8 @@ spec:
           protocol: TCP
         {{- end }}
         env:
+        - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
+          value: "true"
         - name: JASYPT_SECRET
           valueFrom:
             secretKeyRef:
