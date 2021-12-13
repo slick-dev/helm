@@ -158,6 +158,17 @@ entries:
   analytics:
   - apiVersion: v2
     appVersion: 1.4.2
+    created: "2021-12-13T10:51:20.025510815Z"
+    description: SupplyStack - Analytics
+    digest: 66e4dea82457e8b440a69ab5c7e9624220bc57a5f33ecebf875fbb5f550aa71d
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: analytics
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/analytics-1.0.9/analytics-1.0.9.tgz
+    version: 1.0.9
+  - apiVersion: v2
+    appVersion: 1.4.2
     created: "2021-11-12T11:33:41.820722285Z"
     description: SupplyStack - Analytics
     digest: 188ed93fbd531812ef27754143815cc8e2aece9b98266bcbc009b047278c5b5f
@@ -303,6 +314,17 @@ entries:
   cint:
   - apiVersion: v2
     appVersion: 2.1.0-2586
+    created: "2021-12-13T10:51:20.374579525Z"
+    description: SupplyStack - Carrier-Integrations
+    digest: 456beda28e15bbce19cb74027c857bafb4eded8a9b8109f45ff52a75a3173b84
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: cint
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/cint-1.0.21/cint-1.0.21.tgz
+    version: 1.0.21
+  - apiVersion: v2
+    appVersion: 2.1.0-2586
     created: "2021-11-12T11:33:42.175607173Z"
     description: SupplyStack - Carrier-Integrations
     digest: a12ea98de4362c039d5575ab4a5fc7959f42f447245f6a78ac4d0d46f8a7a8ff
@@ -390,6 +412,16 @@ entries:
     - https://github.com/slick-dev/helm/releases/download/cint-1.0.13/cint-1.0.13.tgz
     version: 1.0.13
   client-integrations:
+  - apiVersion: v2
+    created: "2021-12-13T10:51:20.547735064Z"
+    description: SupplyStack - Client-Integrations
+    digest: 1c752588bfffe61b43df44afe5614d7b8692b83be7de3a83af5dd8f0dbd617f7
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: client-integrations
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/client-integrations-1.0.10/client-integrations-1.0.10.tgz
+    version: 1.0.10
   - apiVersion: v2
     created: "2021-11-12T11:33:42.369616709Z"
     description: SupplyStack - Client-Integrations
@@ -563,6 +595,16 @@ entries:
     version: 1.0.7
   invoice-matching:
   - apiVersion: v2
+    created: "2021-12-13T10:51:20.922350524Z"
+    description: SupplyStack - Invoice-Matching
+    digest: 5e07b60cc2910b0512a2e76fec16991688fb38bdda82d53416fad836dfa25cf1
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: invoice-matching
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/invoice-matching-0.0.9/invoice-matching-0.0.9.tgz
+    version: 0.0.9
+  - apiVersion: v2
     created: "2021-11-12T11:33:42.730426756Z"
     description: SupplyStack - Invoice-Matching
     digest: 0ae6df51f718463147b4be3c841c6cdcb7b4c06cc438e75cd547365bbad19da0
@@ -645,6 +687,17 @@ entries:
   notification-service:
   - apiVersion: v2
     appVersion: 1.3.0
+    created: "2021-12-13T10:51:21.104106692Z"
+    description: SupplyStack - Notification-Service
+    digest: 84ebaa3eac9ef74c6d658f586977ad9103fa10602969554fc2eaf822f7777bb3
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: notification-service
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/notification-service-1.0.10/notification-service-1.0.10.tgz
+    version: 1.0.10
+  - apiVersion: v2
+    appVersion: 1.3.0
     created: "2021-11-12T11:33:42.907064383Z"
     description: SupplyStack - Notification-Service
     digest: de5743c5512f8cfbc0f6f3411a5422e89685cfe2f489b83f74953de4127fb0e9
@@ -721,6 +774,16 @@ entries:
     - https://github.com/slick-dev/helm/releases/download/notification-service-1.0.3/notification-service-1.0.3.tgz
     version: 1.0.3
   slotbooking:
+  - apiVersion: v2
+    created: "2021-12-13T10:51:21.266477947Z"
+    description: SupplyStack - Slotbooking
+    digest: ccd588eac93dc26d7e663d5ae69fcfd7818ba3677ea7e4d838afd85c814c8b9f
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: slotbooking
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.28/slotbooking-1.0.28.tgz
+    version: 1.0.28
   - apiVersion: v2
     created: "2021-11-12T12:14:05.168923867Z"
     description: SupplyStack - Slotbooking
@@ -811,4 +874,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-11-15T10:06:20.157036998Z"
+generated: "2021-12-13T10:51:21.267225695Z"
