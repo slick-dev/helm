@@ -1,6 +1,6 @@
-{{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion -}}
+{{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion }}
 apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
+{{- else }}
 apiVersion: networking.k8s.io/v1
 {{- end }}
 kind: Ingress
@@ -30,14 +30,14 @@ spec:
     http:
       paths:
       - path: /
-        {{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion -}}
+        {{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion }}
         pathType: Prefix
         backend:
           service:
             name: {{ .Values.notification_service.name }}
             port:
               name: http
-        {{- else -}}
+        {{- else }}
         backend:
           serviceName: {{ .Values.notification_service.name }}
           servicePort: http
