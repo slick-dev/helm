@@ -6,6 +6,7 @@ global:
   ingress_service: frontend
   production_url: app.timeslotbooking.supplystack.com
   enable_tracing: false
+  recaptcha_site: ""
 
 ########## JAVA Services ##########
 api-gateway:
@@ -92,6 +93,7 @@ scheduler-service:
   - KAFKA_PASSWORD
   - AUTH0_M2M_CLIENT_SECRET
   - ZEEBE_CLIENT_SECRET
+  - RECAPTCHA_SECRET
 
 template-service:
   create_service: true

@@ -103,6 +103,8 @@ spec:
           value: slotbooking
         {{- end }}
         {{- if eq $service "scheduler-service" }}
+        - name: RECAPTCHA_SITE
+          value: {{ $.Values.global.recaptcha_site }}
         - name: ZEEBE_WORKFLOW_PREFIX
           {{- if $config.zeebe_workflow_prefix }}
           value: {{ $config.zeebe_workflow_prefix }}
