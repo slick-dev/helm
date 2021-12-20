@@ -1,11 +1,11 @@
 {{- range $service, $config := .Values }}
 {{- if and ( ne $service "global" ) ( eq $service $.Values.global.ingress_service ) }}
-kind: Ingress
-{{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion }}
+{{- if semverCompare ">=1.19" $.Capabilities.KubeVersion.GitVersion }}
 apiVersion: networking.k8s.io/v1
 {{- else }}
 apiVersion: networking.k8s.io/v1beta1
 {{- end }}
+kind: Ingress
 metadata:
   namespace: {{ $.Release.Namespace }}
   name: {{ $.Chart.Name }}
