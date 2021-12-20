@@ -57,8 +57,8 @@ spec:
 #
 {{- range $service, $config := .Values }}
 {{- if and ( ne $service "global" ) ( eq $service $.Values.global.ingress_service ) }}
----
 {{- range $.Values.global.extra_urls }}
+---
 {{- if semverCompare ">=1.19" $.Capabilities.KubeVersion.GitVersion }}
 apiVersion: networking.k8s.io/v1
 {{- else }}
