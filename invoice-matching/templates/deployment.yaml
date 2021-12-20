@@ -1,6 +1,7 @@
 
 {{- range $service, $config := .Values }}
 {{- if ne $service "global" }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -156,6 +157,5 @@ spec:
             path: {{ $config.probe_path | default "/actuator/health" }}
             port: {{ $config.port }}
           initialDelaySeconds: 300
----
-{{- end}}
-{{- end}}
+{{- end }}
+{{- end }}
