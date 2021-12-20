@@ -1,6 +1,11 @@
 {{- range $service, $config := .Values }}
 {{- if and ( ne $service "global" ) ( $config.create_ingress ) }}
+---
+{{- if semverCompare ">=1.19" $.Capabilities.KubeVersion.GitVersion }}
 apiVersion: networking.k8s.io/v1
+{{- else }}
+apiVersion: networking.k8s.io/v1beta1
+{{- end }}
 kind: Ingress
 metadata:
   namespace: {{ $.Release.Namespace }}
@@ -25,12 +30,19 @@ spec:
     http:
       paths:
       - path: /
+        {{- if semverCompare ">=1.19" $.Capabilities.KubeVersion.GitVersion }}
         pathType: Prefix
         backend:
           service:
             name: {{ $service }}
             port:
               name: http
----
-{{- end}}
-{{- end}}
+        {{- else }}
+        backend:
+          serviceName: {{ $service }}
+          servicePort: http
+        {{- end }}
+{{- end }}
+{{- end }}
+
+
