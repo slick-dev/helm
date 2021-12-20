@@ -1,6 +1,6 @@
-
 {{- range $service, $config := .Values }}
 {{- if ne $service "global" }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -43,8 +43,8 @@ spec:
       serviceAccountName: {{ $.Chart.Name }}
       securityContext:
         runAsNonRoot: true
-        runAsUser: "65534"
-        runAsGroup: "65534"
+        runAsUser: 65534
+        runAsGroup: 65534
       automountServiceAccountToken: false
       enableServiceLinks: false
       {{- if ne $.Values.global.env "prod" }}
@@ -149,7 +149,5 @@ spec:
             path: /actuator/health
             port: 8080
           initialDelaySeconds: 900
-
----
 {{- end}}
 {{- end}}
