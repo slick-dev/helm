@@ -1090,6 +1090,16 @@ entries:
     version: 1.0.3
   slotbooking:
   - apiVersion: v2
+    created: "2021-12-20T13:50:10.529120204Z"
+    description: SupplyStack - Slotbooking
+    digest: fb726aa1f139dae4b17635dade3b0622d7e37c944b5eb51a2a96a148d95db037
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: slotbooking
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/slotbooking-1.30.1/slotbooking-1.30.1.tgz
+    version: 1.30.1
+  - apiVersion: v2
     created: "2021-12-20T12:28:02.970879957Z"
     description: SupplyStack - Slotbooking
     digest: 8d4b8e56341f7ae56dad2a043cc340bfa0b3c509286bf8fbe53b1ff0b2a7cf8e
@@ -1239,4 +1249,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-12-20T12:28:02.972165495Z"
+generated: "2021-12-20T13:50:10.529578279Z"
