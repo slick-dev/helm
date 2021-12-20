@@ -1,6 +1,7 @@
 
 {{- range $service, $config := .Values }}
 {{- if ne $service "global" }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -8,7 +9,6 @@ metadata:
   name: {{ $service }}
   labels:
     helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-    app.kubernetes.io/version: {{ $.Chart.AppVersion }}
     app.kubernetes.io/managed-by: {{ $.Release.Service }}
     app.kubernetes.io/name: {{ $service }}
 spec:
@@ -68,7 +68,7 @@ spec:
       {{- end }}
       containers:
       - name: {{ $service }}
-        image: {{ $config.image.repository }}:{{ $config.image.tag | default $.Chart.AppVersion }}
+        image: "{{ $config.image.repository }}:{{ $config.image.tag }}"
         securityContext:
           allowPrivilegeEscalation: false
         {{- if $config.create_service }}
@@ -149,7 +149,5 @@ spec:
             path: /actuator/health
             port: 8080
           initialDelaySeconds: 900
-
----
-{{- end}}
-{{- end}}
+{{- end }}
+{{- end }}
