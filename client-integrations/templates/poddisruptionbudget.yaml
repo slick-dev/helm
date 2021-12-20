@@ -1,5 +1,6 @@
 {{- range $service, $config := .Values }}
 {{- if and ( ne $service "global" ) ( eq $.Values.global.env "prod" ) }}
+---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
@@ -10,6 +11,5 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ $service }}
----
-{{- end}}
-{{- end}}
+{{- end }}
+{{- end }}
