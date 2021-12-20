@@ -1,5 +1,6 @@
 {{- range $service, $config := .Values }}
 {{- if or ( eq $service "express" ) ( eq $service "socket" ) }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -37,6 +38,5 @@ spec:
     name: http
   selector:
     app.kubernetes.io/name: {{ $service }}
----
-{{- end}}
-{{- end}}
+{{- end }}
+{{- end }}
