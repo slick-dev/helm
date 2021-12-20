@@ -1,5 +1,6 @@
 {{- range $service, $config := .Values }}
 {{- if and ( ne $service "global" ) ( $config.create_service ) }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -28,6 +29,5 @@ spec:
     name: http
   selector:
     app.kubernetes.io/name: {{ $service }}
----
-{{- end}}
-{{- end}}
+{{- end }}
+{{- end }}
