@@ -838,6 +838,16 @@ entries:
     version: 1.0.7
   invoice-matching:
   - apiVersion: v2
+    created: "2021-12-20T11:24:18.212250389Z"
+    description: SupplyStack - Invoice-Matching
+    digest: 534ae6dddf6ea093554732c80e0a759102191c4e2ea15367afb9a66962947f98
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: invoice-matching
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/invoice-matching-1.0.0/invoice-matching-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     created: "2021-12-13T11:10:50.154262716Z"
     description: SupplyStack - Invoice-Matching
     digest: 1cda6139b084830514b88ed0b6c30a71d1e963252422b07be4b8acefc93ffd99
@@ -1219,4 +1229,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-12-20T10:43:13.191140862Z"
+generated: "2021-12-20T11:24:18.555854735Z"
