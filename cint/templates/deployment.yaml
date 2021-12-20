@@ -43,8 +43,8 @@ spec:
       serviceAccountName: {{ $.Chart.Name }}
       securityContext:
         runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
+        runAsUser: "65534"
+        runAsGroup: "65534"
       automountServiceAccountToken: false
       enableServiceLinks: false
       {{- if ne $.Values.global.env "prod" }}
