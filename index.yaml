@@ -747,6 +747,16 @@ entries:
     version: 1.0.0
   controltower:
   - apiVersion: v2
+    created: "2021-12-20T10:43:12.684290565Z"
+    description: SupplyStack - Controltower
+    digest: d5540846d4ff667e0d86cbe1bea403c1c11140bd6d3f5ac64e7c79770769273a
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: controltower
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/controltower-1.20.0/controltower-1.20.0.tgz
+    version: 1.20.0
+  - apiVersion: v2
     created: "2021-12-13T11:10:49.966413797Z"
     description: SupplyStack - Controltower
     digest: e67bcd829d7b0fc21d6e9a3a78663a598018e1d3d63a3604230240f3887b224d
@@ -1209,4 +1219,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2021-12-20T10:24:26.715005133Z"
+generated: "2021-12-20T10:43:13.191140862Z"
