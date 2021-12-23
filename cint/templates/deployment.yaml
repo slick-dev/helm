@@ -137,9 +137,9 @@ spec:
         resources:
           requests:
             cpu: 100m
-            memory: {{ $config.mem_limit | default "384Mi" }}
+            memory: {{ $config.mem_limit | default "512Mi" }}
           limits:
-            memory: {{ $config.mem_limit | default "384Mi" }}
+            memory: {{ $config.mem_limit | default "512Mi" }}
         readinessProbe:
           httpGet:
             path: /actuator/health
