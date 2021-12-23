@@ -17,6 +17,7 @@ cint-service:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/cint-service
   deployment_strategy: RollingUpdate
   replicas: 2
+  mem_limit: 640Mi
   extra_secrets:
   - DD_API_KEY
   - DD_APP_KEY
