@@ -103,10 +103,18 @@ spec:
               key: KAFKA_PASSWORD
         - name: KAFKA_BROKERS
           value: {{ $.Values.global.kafka.brokers }}
-        - name: CONSUMER_KAFKA_BROKERS
-          value: {{ $.Values.global.kafka.consumer_brokers }}
         - name: KAFKA_SCHEMA_REGISTRY
           value: {{ $.Values.global.kafka.schema_registry }}
+        - name: KAFKA_SASL_MECHANISM
+          value: SCRAM-SHA-256
+        - name: KAFKA_SECURITY_PROTOCOL
+          value: SASL_SSL
+        - name: CONSUMER_KAFKA_BROKERS
+          value: {{ $.Values.global.kafka.consumer_brokers }}
+        - name: CONSUMER_KAFKA_SASL_MECHANISM
+          value: SCRAM-SHA-512
+        - name: CONSUMER_KAFKA_SECURITY_PROTOCOL
+          value: SASL_SSL
         - name: DB_HOST_URI
           value: {{ $.Values.global.db_host_uri }}
         {{- if $.Values.global.enable_tracing }}
