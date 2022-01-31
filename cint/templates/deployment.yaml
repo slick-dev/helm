@@ -107,8 +107,6 @@ spec:
           value: {{ $.Values.global.kafka.consumer_brokers }}
         - name: KAFKA_SCHEMA_REGISTRY
           value: {{ $.Values.global.kafka.schema_registry }}
-        - name: SASL_MECHANISM
-          value: SCRAM-SHA-256
         - name: DB_HOST_URI
           value: {{ $.Values.global.db_host_uri }}
         {{- if $.Values.global.enable_tracing }}
