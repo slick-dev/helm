@@ -105,6 +105,22 @@ spec:
           value: {{ $.Values.global.kafka.brokers }}
         - name: KAFKA_SCHEMA_REGISTRY
           value: {{ $.Values.global.kafka.schema_registry }}
+        - name: KAFKA_SASL_MECHANISM
+          value: {{ $.Values.global.kafka.sasl_mechanism }}
+        - name: KAFKA_SECURITY_PROTOCOL
+          value: {{ $.Values.global.kafka.security_protocol }}
+        {{- if $.Values.global.kafka.consumer_brokers }}
+        - name: CONSUMER_KAFKA_BROKERS
+          value: {{ $.Values.global.kafka.consumer_brokers }}
+        {{- end }}
+        {{- if $.Values.global.kafka.consumer_sasl_mechanism }}
+        - name: CONSUMER_KAFKA_SASL_MECHANISM
+          value: {{ $.Values.global.kafka.consumer_sasl_mechanism }}
+        {{- end }}
+        {{- if $.Values.global.kafka.consumer_security_protocol }}
+        - name: CONSUMER_KAFKA_SECURITY_PROTOCOL
+          value: {{ $.Values.global.kafka.consumer_security_protocol }}
+        {{- end }}
         - name: DB_HOST_URI
           value: {{ $.Values.global.db_host_uri }}
         {{- if $.Values.global.enable_tracing }}
