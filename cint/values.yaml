@@ -37,6 +37,12 @@ bas-service:
   extra_secrets:
   - DB_BAS_PASSWORD
 
+carloc-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/carloc-service
+  extra_secrets:
+  - DB_CARLOC_PASSWORD
+
 db-schenker-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/db-schenker-service
