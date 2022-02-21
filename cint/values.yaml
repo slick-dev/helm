@@ -159,6 +159,12 @@ gvt-service:
   extra_secrets:
   - DB_GVT_PASSWORD
 
+hamann-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/hamann-service
+  extra_secrets:
+  - DB_HAMANN_PASSWORD
+
 heisterkamp-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/heisterkamp-service
