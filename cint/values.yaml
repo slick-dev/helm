@@ -112,6 +112,12 @@ dpd-seur-service:
   extra_secrets:
   - DB_DPDSEUR_PASSWORD
 
+dsv-rest-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/dsv-rest-service
+  extra_secrets:
+    - DB_DSVREST_PASSWORD
+
 dsv-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/dsv-service
