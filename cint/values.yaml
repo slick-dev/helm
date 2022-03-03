@@ -37,6 +37,12 @@ bas-service:
   extra_secrets:
   - DB_BAS_PASSWORD
 
+carloc-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/carloc-service
+  extra_secrets:
+  - DB_CARLOC_PASSWORD
+
 db-schenker-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/db-schenker-service
@@ -63,6 +69,12 @@ dhl-express-service:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/dhl-express-service
   extra_secrets:
   - DB_DHLEXPRESS_PASSWORD
+
+dhl-parcel-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/dhl-parcel-service
+  extra_secrets:
+  - DB_DHLPARCEL_PASSWORD
 
 dpd-at-service:
   image:
@@ -152,6 +164,12 @@ gvt-service:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/gvt-service
   extra_secrets:
   - DB_GVT_PASSWORD
+
+hamann-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/hamann-service
+  extra_secrets:
+  - DB_HAMANN_PASSWORD
 
 heisterkamp-service:
   image:

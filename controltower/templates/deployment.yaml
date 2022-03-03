@@ -171,6 +171,7 @@ spec:
             {{- else }}
             memory: {{ $config.mem_limit | default "1024Mi" }}
             {{- end }}
+        {{- if not $.Values.global.probes_disabled }}
         readinessProbe:
           httpGet:
             path: /api/health
@@ -185,6 +186,7 @@ spec:
           periodSeconds: 15
           timeoutSeconds: 10
         {{- end }}
+        {{- end }}
         {{- if eq $service "socket" }}
         resources:
           requests:
@@ -192,6 +194,7 @@ spec:
             memory: {{ $config.mem_limit | default "512Mi" }}
           limits:
             memory: {{ $config.mem_limit | default "512Mi" }}
+        {{- if not $.Values.global.probes_disabled }}
         readinessProbe:
           exec:
             command:
@@ -207,6 +210,7 @@ spec:
           initialDelaySeconds: 300
           periodSeconds: 20
           timeoutSeconds: 10
+        {{- end }}
         {{- end }}
 {{- end }}
 {{- end }}
