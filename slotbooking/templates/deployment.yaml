@@ -64,6 +64,42 @@ spec:
         value: tolerate
         effect: NoSchedule
       {{- end }}
+      {{- if $config.init_container_enabled }}
+      initContainers:
+      - name: init-container-service
+        image: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/init-container:{{ $config.image.tag }}
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: APPLICATION
+        - value: slotbooking
+        - name: SERVICE
+        - value: {{ $service }}
+        - name: CONSUL_ACL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: CONSUL_ACL_TOKEN
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ $.Values.global.env }}
+        - name: CONSUL_HOST
+          value: {{ $.Values.global.consul_host | default "consul-redirector.consul" }}
+        {{- if and ( ne $service "frontend" ) ( ne $service "api-gateway" ) }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: DB_PASSWORD
+        {{- end }}
+        {{- range $config.extra_secrets }}
+        - name: {{ . }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: {{ . }}
+        {{- end }}
+      {{- end }}
+
       containers:
       - name: {{ $service }}
         image: {{ $config.image.repository }}:{{ $config.image.tag }}

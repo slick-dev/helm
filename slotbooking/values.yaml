@@ -11,6 +11,7 @@ global:
 ########## JAVA Services ##########
 api-gateway:
   create_service: true
+  init_container_enabled: false
   port: 9190
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/api-gateway
@@ -18,6 +19,7 @@ api-gateway:
 
 booking-service:
   create_service: true
+  init_container_enabled: true
   port: 9096
   mem_limit: 1024Mi
   image:
@@ -26,9 +28,9 @@ booking-service:
   extra_secrets:
   - KAFKA_PASSWORD
 
-
 carrier-service:
   create_service: true
+  init_container_enabled: true
   port: 9098
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/carrier-service
@@ -38,6 +40,7 @@ carrier-service:
 
 customer-service:
   create_service: true
+  init_container_enabled: true
   port: 9095
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/customer-service
@@ -47,6 +50,7 @@ customer-service:
 
 grid-service:
   create_service: true
+  init_container_enabled: true
   port: 9193
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/grid-service
@@ -56,6 +60,7 @@ grid-service:
 
 notification-service:
   create_service: true
+  init_container_enabled: false
   port: 8080
   image: 
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/notification-service
@@ -66,16 +71,19 @@ notification-service:
 
 onboarding-service:
   create_service: true
+  init_container_enabled: true
   port: 9192
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/onboarding-service
     tag: replaceme
   extra_secrets:
-  - DB_PASSWORD_ANALYTICS
+  - DB_ANALYTICS_PASSWORD
   - KAFKA_PASSWORD
+  - AUTH0_M2M_SB_ONBOARDING_CLIENT_SECRET
 
 permission-service:
   create_service: true
+  init_container_enabled: false
   port: 9094
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/permission-service
@@ -83,6 +91,7 @@ permission-service:
 
 scheduler-service:
   create_service: true
+  init_container_enabled: false
   port: 9195
   readiness_probe_path: /actuator/health/readiness
   liveness_probe_path: /actuator/health/liveness
@@ -97,6 +106,7 @@ scheduler-service:
 
 template-service:
   create_service: true
+  init_container_enabled: true
   port: 9099
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/template-service
@@ -106,6 +116,7 @@ template-service:
 ########## Frontend ##########
 frontend:
   create_service: true
+  init_container_enabled: false
   mem_limit: 64Mi
   port: 8080
   readiness_probe_path: /favicon.ico
