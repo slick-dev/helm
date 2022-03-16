@@ -84,13 +84,11 @@ spec:
           value: {{ $.Values.global.env }}
         - name: CONSUL_HOST
           value: {{ $.Values.global.consul_host | default "consul-redirector.consul" }}
-        {{- if and ( ne $service "frontend" ) ( ne $service "api-gateway" ) }}
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ $.Values.global.secret }}
               key: DB_PASSWORD
-        {{- end }}
         {{- range $config.extra_secrets }}
         - name: {{ . }}
           valueFrom:
