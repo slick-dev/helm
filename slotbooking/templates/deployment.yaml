@@ -97,7 +97,6 @@ spec:
               key: {{ . }}
         {{- end }}
       {{- end }}
-
       containers:
       - name: {{ $service }}
         image: {{ $config.image.repository }}:{{ $config.image.tag }}
