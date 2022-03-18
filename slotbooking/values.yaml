@@ -27,6 +27,7 @@ booking-service:
     tag: replaceme
   extra_secrets:
   - KAFKA_PASSWORD
+  - AUTH0_M2M_CLIENT_SECRET
 
 carrier-service:
   create_service: true
@@ -47,6 +48,7 @@ customer-service:
     tag: replaceme
   extra_secrets:
   - KAFKA_PASSWORD
+  - AUTH0_M2M_CLIENT_SECRET
 
 grid-service:
   create_service: true
@@ -111,7 +113,8 @@ template-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/template-service
     tag: replaceme
-
+  extra_secrets:
+  - AUTH0_M2M_CLIENT_SECRET
 
 ########## Frontend ##########
 frontend:
