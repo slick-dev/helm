@@ -52,6 +52,37 @@ spec:
         runAsGroup: 65534
       automountServiceAccountToken: false
       enableServiceLinks: false
+      initContainers:
+      - name: {{ $service }}-init
+        image: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/init-container:{{ $config.image.tag }}
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: APPLICATION
+          value: analytics
+        - name: SERVICE
+          value: {{ $service }}
+        - name: CONSUL_ACL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: CONSUL_ACL_TOKEN
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ $.Values.global.env }}
+        - name: CONSUL_HOST
+          value: {{ $.Values.global.consul_host | default "consul-redirector.consul" }}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: DB_PASSWORD
+        {{- range $config.extra_secrets }}
+        - name: {{ . }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.global.secret }}
+              key: {{ . }}
+        {{- end }}
       containers:
         - name: {{ .Values.slotbooking_analytics.name }}
           securityContext:
