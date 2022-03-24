@@ -65,22 +65,22 @@ spec:
         - name: CONSUL_ACL_TOKEN
           valueFrom:
             secretKeyRef:
-              name: {{ $.Values.global.secret }}
+              name: {{ .Values.secret }}
               key: CONSUL_ACL_TOKEN
         - name: SPRING_PROFILES_ACTIVE
-          value: {{ $.Values.global.env }}
+          value: {{ .Values.env }}
         - name: CONSUL_HOST
-          value: {{ $.Values.global.consul_host | default "consul-redirector.consul" }}
+          value: consul-redirector.consul
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ $.Values.global.secret }}
+              name: {{ .Values.secret }}
               key: DB_PASSWORD
-        {{- range $config.extra_secrets }}
+        {{- range $.Values.slotbooking_analytics.extra_secrets }}
         - name: {{ . }}
           valueFrom:
             secretKeyRef:
-              name: {{ $.Values.global.secret }}
+              name: {{ $.Values.secret }}
               key: {{ . }}
         {{- end }}
       containers:
