@@ -54,7 +54,7 @@ spec:
       enableServiceLinks: false
       initContainers:
       - name: {{ .Values.slotbooking_analytics.name }}-init
-        image: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/init-container:{{ .Values.slotbooking_analytics.image.tag | default .Chart.AppVersion }}
+        image: "748094632676.dkr.ecr.eu-west-1.amazonaws.com/analytics/init-container:{{ .Values.slotbooking_analytics.image.tag | default .Chart.AppVersion }}"
         securityContext:
           allowPrivilegeEscalation: false
         env:
