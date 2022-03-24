@@ -61,7 +61,7 @@ spec:
         - name: APPLICATION
           value: analytics
         - name: SERVICE
-          value: {{ $service }}
+          value: {{ .Values.slotbooking_analytics.name }}
         - name: CONSUL_ACL_TOKEN
           valueFrom:
             secretKeyRef:
