@@ -204,6 +204,12 @@ kuehnenagel-service:
   - name: KUEHNENAGEL-SERVICE_SCHEDULER_CONSUMER_CRON
     value: 0 */5 * * * *
 
+kuehnenagel-sftp-service:
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/kuehnenagel-sftp-service
+  extra_secrets:
+    - DB_KUEHNENAGELSFTP_PASSWORD
+
 prevost-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/prevost-service
