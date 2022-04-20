@@ -95,6 +95,11 @@ spec:
               secretKeyRef:
                 name: {{ .Values.secret }}
                 key: KAFKA_PASSWORD
+          - name: AUTH0_M2M_SB_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secret }}
+                key: AUTH0_M2M_SB_CLIENT_SECRET          
           - name: CONSUL_HOST
             value: consul-redirector.consul
           {{- if .Values.service.enable_tracing }}
