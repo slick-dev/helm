@@ -1,0 +1,55 @@
+{{- if $.Values.global.redis.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: redis
+  labels:
+    helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/name: redis
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: 'false'
+        prometheus.io/scrape: 'false'
+        supplystack.io/env: {{ $.Values.global.env }}
+        supplystack.io/customer: {{ $.Values.global.customer }}
+        {{- if $.Values.global.datadog }}
+        ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"controltower", "source":"redis", 
+                                  "customer": "{{ $.Values.global.customer }}"}'
+        ad.datadoghq.com/redis.logs: '[{"service":"controltower", "source":"redis"}]'
+        {{- end }}
+      labels:
+        app.kubernetes.io/name: redis
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      {{- if ne $.Values.global.env "prod" }}
+      nodeSelector:
+        lifecycle: Ec2Spot-m4-m5
+      tolerations:
+      - key: spotInstance
+        operator: Equal
+        value: tolerate
+        effect: NoSchedule
+      {{- end }}
+      containers:
+      - name: redis
+        image: {{ $.Values.global.redis.image.repository }}:{{ $.Values.global.redis.image.tag }}
+        ports:
+        - name: http
+          containerPort: 6379
+        resources:
+          requests:
+            cpu: 50m
+            memory: {{ $.Values.global.redis.mem_limit | default "128Mi" }}
+          limits:
+            memory: {{ $.Values.global.redis.mem_limit | default "128Mi" }}
+{{- end }}
