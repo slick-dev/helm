@@ -48,8 +48,8 @@ spec:
           containerPort: 6379
         resources:
           requests:
-            cpu: 50m
-            memory: {{ $.Values.global.redis.mem_limit | default "128Mi" }}
+            cpu: 10m
+            memory: {{ $.Values.global.redis.mem_limit | default "64Mi" }}
           limits:
-            memory: {{ $.Values.global.redis.mem_limit | default "128Mi" }}
+            memory: {{ $.Values.global.redis.mem_limit | default "64Mi" }}
 {{- end }}
