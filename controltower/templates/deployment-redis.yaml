@@ -52,4 +52,15 @@ spec:
             memory: {{ $.Values.global.redis.mem_limit | default "64Mi" }}
           limits:
             memory: {{ $.Values.global.redis.mem_limit | default "64Mi" }}
+        readinessProbe:
+          exec:
+            command:
+            - /usr/local/bin/redis-cli
+            - ping
+        livenessProbe:
+          exec:
+            command:
+            - /usr/local/bin/redis-cli
+            - ping
+          initialDelaySeconds: 30
 {{- end }}
