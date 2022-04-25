@@ -7,6 +7,11 @@ global:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/controltower
     tag: replaceme
+  redis:
+    enabled: false
+    image: 
+      repository: redis
+      tag: 6.2-alpine
 
 express:
   replicas: 2

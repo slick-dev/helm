@@ -1,0 +1,19 @@
+{{- if $.Values.global.redis.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: redis
+  labels:
+    helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/name: redis
+spec:
+  ports:
+  - port: 6379
+    targetPort: http
+    name: http
+  selector:
+    app.kubernetes.io/name: redis
+{{- end }}
