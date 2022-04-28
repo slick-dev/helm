@@ -83,14 +83,6 @@ onboarding-service:
   - KAFKA_PASSWORD
   - AUTH0_M2M_SB_ONBOARDING_CLIENT_SECRET
 
-permission-service:
-  create_service: true
-  init_container_enabled: false
-  port: 9094
-  image:
-    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/slotbooking/permission-service
-    tag: replaceme
-
 scheduler-service:
   create_service: true
   init_container_enabled: false

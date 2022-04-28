@@ -3,5 +3,5 @@ name: slotbooking
 description: SupplyStack - Slotbooking
 type: application
 icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
-version: 1.31.2
+version: 1.32.0
 
