@@ -3,5 +3,5 @@ name: notification-service
 description: SupplyStack - Notification-Service
 type: application
 icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
-version: 1.20.2
+version: 1.21.0
 
