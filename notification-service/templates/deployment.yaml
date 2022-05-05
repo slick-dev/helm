@@ -111,9 +111,8 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-              protocol: TCP
-            - containerPort: 9090
-              name: actuator
+            - name: actuator
+              containerPort: 9090
           livenessProbe:
             httpGet:
               path: /actuator/health
