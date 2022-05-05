@@ -1139,6 +1139,16 @@ entries:
     version: 0.0.1
   notification-service:
   - apiVersion: v2
+    created: "2022-05-05T17:38:31.4913483Z"
+    description: SupplyStack - Notification-Service
+    digest: b098e47bf312d9477dfc79cef168dbed48d65b9135e96ce2dca1e9171b1289ea
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: notification-service
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/notification-service-1.20.2/notification-service-1.20.2.tgz
+    version: 1.20.2
+  - apiVersion: v2
     created: "2021-12-16T14:32:24.422254977Z"
     description: SupplyStack - Notification-Service
     digest: 13f452f3500a0e5ecf69ccb09968f175a807dbfe38edb1aa882dcc65e777ba4b
@@ -1469,4 +1479,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2022-04-28T06:50:14.263217978Z"
+generated: "2022-05-05T17:38:31.670467606Z"
