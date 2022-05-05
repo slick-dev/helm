@@ -21,5 +21,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: 9090
+      targetPort: actuator
+      protocol: TCP
+      name: actuator
   selector:
     app.kubernetes.io/name: {{ .Values.notification_service.name }}
