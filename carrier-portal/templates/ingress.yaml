@@ -66,3 +66,16 @@ spec:
           serviceName: {{ .Values.service.service_name_override }}
           servicePort: http
         {{- end }}
+      - path: /actuator/health
+        {{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.service.service_name_override }}
+            port:
+              name: actuator
+        {{- else }}
+        backend:
+          serviceName: {{ .Values.service.service_name_override }}
+          servicePort: actuator
+        {{- end }}

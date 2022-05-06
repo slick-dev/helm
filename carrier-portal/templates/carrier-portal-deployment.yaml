@@ -21,7 +21,9 @@ spec:
         ad.datadoghq.com/{{ .Values.portal.name }}.logs: '[{"service":"{{ .Chart.Name }}", "source":"{{ .Values.portal.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Chart.Name }}", "source":"{{ .Values.portal.name }}"}'
         supplystack.io/env: {{ .Values.env }}
-        prometheus.io/scrape: "false"
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '9090'
       labels:
         app.kubernetes.io/name: {{ .Values.portal.name }}
     spec:
@@ -63,7 +65,8 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-              protocol: TCP
+            - name: actuator
+              containerPort: 9090
           env:
           - name: DIST_FOLDER
             value: dist/apps/carrier-portal
@@ -78,14 +81,16 @@ spec:
                 key: CONSUL_ACL_TOKEN
           - name: CONSUL_HOST
             value: consul-redirector.consul
+          - name: MANAGEMENT_PORT
+            value: 9090
           livenessProbe:
             httpGet:
-              path: /favicon.ico
+              path: /actuator/health
               port: http
             initialDelaySeconds: 60
           readinessProbe:
             httpGet:
-              path: /favicon.ico
+              path: /actuator/health
               port: http
           resources:
             requests:
