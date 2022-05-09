@@ -130,12 +130,12 @@ spec:
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: http
+              port: actuator
             initialDelaySeconds: 300
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: http
+              port: actuator
           resources:
             requests:
               cpu: 100m
