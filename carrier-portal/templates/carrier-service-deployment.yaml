@@ -64,8 +64,6 @@ spec:
           env:
           - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
             value: "true"
-          - name: MANAGEMENT_PORT
-            value: "9090"
           {{- if $.Values.enable_tracing }}
           - name: JAVA_TOOL_OPTIONS
             value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
@@ -129,12 +127,12 @@ spec:
               containerPort: 9090
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/liveness
               port: actuator
             initialDelaySeconds: 300
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: actuator
           resources:
             requests:
