@@ -19,7 +19,9 @@ spec:
       annotations:
         ad.datadoghq.com/{{ .Values.service.name }}.logs: '[{"service":"{{ .Chart.Name }}", "source":"{{ .Values.service.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Chart.Name }}", "source":"{{ .Values.service.name }}"}'
-        prometheus.io/scrape: "false"
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '9090'
         supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.service.name }}
@@ -62,6 +64,8 @@ spec:
           env:
           - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
             value: "true"
+          - name: MANAGEMENT_PORT
+            value: 9090
           {{- if $.Values.enable_tracing }}
           - name: JAVA_TOOL_OPTIONS
             value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
@@ -121,7 +125,8 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-              protocol: TCP
+            - name: actuator
+              containerPort: 9090
           livenessProbe:
             httpGet:
               path: /actuator/health

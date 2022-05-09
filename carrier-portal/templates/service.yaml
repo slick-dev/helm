@@ -21,6 +21,9 @@ spec:
   - name: http
     port: 8080
     targetPort: http
+  - name: actuator
+    port: 9090
+    targetPort: actuator
   selector:
     app.kubernetes.io/name: {{ .Values.service.name }}
 ---
