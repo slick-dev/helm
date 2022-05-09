@@ -85,12 +85,12 @@ spec:
             value: 9090
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /favicon.ico
               port: http
             initialDelaySeconds: 60
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /favicon.ico
               port: http
           resources:
             requests:
