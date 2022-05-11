@@ -117,7 +117,7 @@ spec:
         {{- if $.Values.global.kafka.consumer_brokers }}
         - name: CONSUMER_KAFKA_BROKERS
           value: {{ $.Values.global.kafka.consumer_brokers }}
-        {{ - end }}
+        {{- end }}
         {{- if $.Values.global.kafka.consumer_sasl_mechanism }}
         - name: CONSUMER_KAFKA_SASL_MECHANISM
           value: {{ $.Values.global.kafka.consumer_sasl_mechanism }}
