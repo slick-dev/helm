@@ -25,7 +25,13 @@ spec:
   template:
     metadata:
       annotations:
+        {{- if and ( $.Values.global.enable_metrics ) ( or ( eq $service "express" ) ( eq $service "skeda" ) ) }}
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/metrics'
+        prometheus.io/port: '8080'
+        {{- else }}
         prometheus.io/scrape: 'false'
+        {{- end }}
         supplystack.io/env: {{ $.Values.global.env }}
         supplystack.io/customer: {{ $.Values.global.customer }}
         {{- if $.Values.global.datadog }}
@@ -145,6 +151,20 @@ spec:
           value: consul-redirector.consul
         - name: CONSUL_KEY
           value: {{ $.Values.global.env }}/controltower/{{ $.Values.global.customer }}
+        {{- if $.Values.global.enable_tracing }}
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.name={{ $.Values.global.env }}-controltower-{{ $.Values.global.customer }}-{{ $service }},job={{ $.Values.global.env }}-controltower-{{ $.Values.global.customer }}/{{ $service }}
+        - name: OTEL_METRICS_EXPORTER
+          value: none
+        - name: OTEL_TRACES_EXPORTER
+          value: otlp
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://$(HOST_IP):4317
+        {{- end }}
         {{- range $.Values.global.extra_secrets }}
         - name: {{ . }}
           valueFrom:

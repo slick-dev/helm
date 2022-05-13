@@ -1,6 +1,8 @@
 global:
   datadog: true
   env: dev
+  enable_tracing: false
+  enable_metrics: false
   customer: develop
   secret: sealed-secret
   ingress_service: express
