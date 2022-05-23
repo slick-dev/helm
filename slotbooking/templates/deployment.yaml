@@ -27,9 +27,13 @@ spec:
       annotations:
         {{- if eq $service "frontend" }}
         fluentbit.io/parser: nginx
+        prometheus.io/scrape: 'false'
+        {{- else }}
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '9090'
         {{- end }}
         supplystack.io/env: {{ $.Values.global.env }}
-        prometheus.io/scrape: 'false'
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"slotbooking", "source":"{{ $service }}"}'
         ad.datadoghq.com/{{ $service }}.logs: '[{"service":"slotbooking", "source":"{{ $service }}"}]'
       labels:
@@ -106,6 +110,10 @@ spec:
         ports:
         - name: http
           containerPort: {{ $config.port }}
+        {{- end }}
+        {{- if ne $service "frontend" }}
+        - name: actuator
+          containerPort: 9090
         {{- end }}
         env:
         - name: CONSUL_ACL_TOKEN
