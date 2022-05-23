@@ -26,7 +26,6 @@ spec:
     metadata:
       annotations:
         {{- if eq $service "frontend" }}
-        fluentbit.io/parser: nginx
         prometheus.io/scrape: 'false'
         {{- else }}
         prometheus.io/scrape: 'true'
@@ -187,18 +186,29 @@ spec:
             memory: {{ $config.mem_limit | default "512Mi" }}
           limits:
             memory: {{ $config.mem_limit | default "512Mi" }}
+        {{- if eq $service "frontend" }}
         readinessProbe:
           httpGet:
-            path: {{ $config.readiness_probe_path | default "/actuator/health" }}
+            path: "/favicon.ico"
             port: {{ $config.port }}
         livenessProbe:
           httpGet:
-            path: {{ $config.liveness_probe_path | default "/actuator/health" }}
+            path: "/favicon.ico"
             port: {{ $config.port }}
+        {{- else }}
+        readinessProbe:
+          httpGet:
+            path: "/actuator/health"
+            port: 9090
+        livenessProbe:
+          httpGet:
+            path: "/actuator/health"
+            port: 9090
           {{- if eq $.Values.global.env "prod" }}
           initialDelaySeconds: 600
           {{- else }}
           initialDelaySeconds: 1200
           {{- end }}
+        {{- end }}
 {{- end }}
 {{- end }}
