@@ -26,10 +26,13 @@ spec:
     metadata:
       annotations:
         {{- if eq $service "frontend" }}
-        fluentbit.io/parser: nginx
+        prometheus.io/scrape: 'false'
+        {{- else }}
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '9090'
         {{- end }}
         supplystack.io/env: {{ $.Values.global.env }}
-        prometheus.io/scrape: 'false'
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"slotbooking", "source":"{{ $service }}"}'
         ad.datadoghq.com/{{ $service }}.logs: '[{"service":"slotbooking", "source":"{{ $service }}"}]'
       labels:
@@ -107,6 +110,10 @@ spec:
         - name: http
           containerPort: {{ $config.port }}
         {{- end }}
+        {{- if ne $service "frontend" }}
+        - name: actuator
+          containerPort: 9090
+        {{- end }}
         env:
         - name: CONSUL_ACL_TOKEN
           valueFrom:
@@ -179,18 +186,29 @@ spec:
             memory: {{ $config.mem_limit | default "512Mi" }}
           limits:
             memory: {{ $config.mem_limit | default "512Mi" }}
+        {{- if eq $service "frontend" }}
         readinessProbe:
           httpGet:
-            path: {{ $config.readiness_probe_path | default "/actuator/health" }}
-            port: {{ $config.port }}
+            path: /favicon.ico
+            port: http
         livenessProbe:
           httpGet:
-            path: {{ $config.liveness_probe_path | default "/actuator/health" }}
-            port: {{ $config.port }}
+            path: /favicon.ico
+            port: http
+        {{- else }}
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: actuator
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: actuator
           {{- if eq $.Values.global.env "prod" }}
           initialDelaySeconds: 600
           {{- else }}
           initialDelaySeconds: 1200
           {{- end }}
+        {{- end }}
 {{- end }}
 {{- end }}

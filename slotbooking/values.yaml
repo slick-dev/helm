@@ -114,8 +114,6 @@ frontend:
   init_container_enabled: false
   mem_limit: 64Mi
   port: 8080
-  readiness_probe_path: /favicon.ico
-  liveness_probe_path: /favicon.ico
   user: 101
   group: 101
   fsgroup: 101
