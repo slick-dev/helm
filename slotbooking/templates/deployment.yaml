@@ -190,20 +190,20 @@ spec:
         readinessProbe:
           httpGet:
             path: "/favicon.ico"
-            port: {{ $config.port }}
+            port: http
         livenessProbe:
           httpGet:
             path: "/favicon.ico"
-            port: {{ $config.port }}
+            port: http
         {{- else }}
         readinessProbe:
           httpGet:
             path: "/actuator/health"
-            port: 9090
+            port: actuator
         livenessProbe:
           httpGet:
             path: "/actuator/health"
-            port: 9090
+            port: actuator
           {{- if eq $.Values.global.env "prod" }}
           initialDelaySeconds: 600
           {{- else }}
