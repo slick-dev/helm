@@ -1,5 +1,6 @@
 env: dev
 platform: amd64
+actuator_port: 9090
 notification_service:
   name: notification-service
   image:

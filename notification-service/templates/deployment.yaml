@@ -21,7 +21,7 @@ spec:
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Values.notification_service.name }}", "source":"{{ .Values.notification_service.name }}"}'
         prometheus.io/scrape: 'true'
         prometheus.io/path: '/actuator/prometheus'
-        prometheus.io/port: '9090'
+        prometheus.io/port: '{{ .Values.actuator_port }}'
         supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.notification_service.name }}
@@ -97,7 +97,7 @@ spec:
                 name: sealed-secret
                 key: CONSUL_ACL_TOKEN
           - name: CONSUL_HOST
-            value: consul-redirector.consul
+            value: {{ .Values.consul_host | default "consul-redirector.consul" }}
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -112,7 +112,7 @@ spec:
             - name: http
               containerPort: 8080
             - name: actuator
-              containerPort: 9090
+              containerPort: {{ .Values.actuator_port }}
           livenessProbe:
             httpGet:
               path: /actuator/health
