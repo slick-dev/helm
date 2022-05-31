@@ -21,7 +21,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    - port: 9090
+    - port: {{ .Values.actuator_port }}
       targetPort: actuator
       protocol: TCP
       name: actuator
