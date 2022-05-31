@@ -50,6 +50,7 @@ spec:
           serviceName: {{ .Values.notification_service.name }}
           servicePort: http
         {{- end }}
+      {{- if .Values.metrics_enabled }}
       - path: /actuator/health
         {{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion }}
         pathType: Prefix
@@ -62,4 +63,5 @@ spec:
         backend:
           serviceName: {{ .Values.notification_service.name }}
           servicePort: actuator
+        {{- end }}
         {{- end }}

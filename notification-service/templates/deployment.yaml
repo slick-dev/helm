@@ -19,9 +19,11 @@ spec:
       annotations:
         ad.datadoghq.com/{{ .Values.notification_service.name }}.logs: '[{"service":"{{ .Values.notification_service.name }}", "source":"{{ .Values.notification_service.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Values.notification_service.name }}", "source":"{{ .Values.notification_service.name }}"}'
+        {{- if .Values.metrics_enabled }}
         prometheus.io/scrape: 'true'
         prometheus.io/path: '/actuator/prometheus'
-        prometheus.io/port: '{{ .Values.actuator_port }}'
+        prometheus.io/port: '9090'
+        {{- end }}
         supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.notification_service.name }}
@@ -111,17 +113,27 @@ spec:
           ports:
             - name: http
               containerPort: 8080
+            {{- if .Values.metrics_enabled }}
             - name: actuator
-              containerPort: {{ .Values.actuator_port }}
+              containerPort: 9090
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /actuator/health
+              {{- if .Values.metrics_enabled }}
               port: actuator
+              {{- else }}
+              port: http
+              {{- end }}
             initialDelaySeconds: 300
           readinessProbe:
             httpGet:
               path: /actuator/health
+              {{- if .Values.metrics_enabled }}
               port: actuator
+              {{- else }}
+              port: http
+              {{- end }}
           resources:
             requests:
               cpu: 100m
