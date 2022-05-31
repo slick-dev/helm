@@ -16,8 +16,8 @@ spec:
   tls:
   - hosts:
     {{- if eq .Values.env "prod" }}
-    {{- if $.Values.production_url }}
-    - {{ $.Values.production_url }}
+    {{- if .Values.production_url }}
+    - {{ .Values.production_url }}
     {{- else }}
     - {{ .Chart.Name }}.supplystack.com
     {{- end }}
@@ -26,9 +26,9 @@ spec:
     {{- end }}
     secretName: le-{{ .Values.env }}-{{ .Chart.Name }}
   rules:
-  {{- if eq $.Values.env "prod" }}
-  {{- if $.Values.production_url }}
-  - host: {{ $.Values.production_url }}
+  {{- if eq .Values.env "prod" }}
+  {{- if .Values.production_url }}
+  - host: {{ .Values.production_url }}
   {{- else }}
   - host: {{ .Chart.Name }}.supplystack.com
   {{- end }}
