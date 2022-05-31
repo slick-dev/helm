@@ -111,12 +111,12 @@ spec:
                 name: sealed-secret
                 key: KAFKA_PASSWORD
           ports:
-            - name: http
-              containerPort: 8080
-            {{- if .Values.metrics_enabled }}
-            - name: actuator
-              containerPort: 9090
-            {{- end }}
+          - name: http
+            containerPort: 8080
+          {{- if .Values.metrics_enabled }}
+          - name: actuator
+            containerPort: 9090
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /actuator/health
