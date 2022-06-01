@@ -84,67 +84,72 @@ spec:
               key: {{ . }}
         {{- end }}
       containers:
-        - name: {{ .Values.slotbooking_analytics.name }}
-          securityContext:
-            allowPrivilegeEscalation: false
-          image: "{{ .Values.slotbooking_analytics.image.repository }}:{{ .Values.slotbooking_analytics.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
-            value: "true"
-          {{- if $.Values.enable_tracing }}
-          - name: JAVA_TOOL_OPTIONS
-            value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
-          - name: OTEL_RESOURCE_ATTRIBUTES
-            value: service.name={{ $.Values.env }}-{{ $.Chart.Name }}-{{ .Values.slotbooking_analytics.name }},job={{ $.Values.env }}-{{ $.Chart.Name }}/{{ .Values.slotbooking_analytics.name }}
-          - name: OTEL_METRICS_EXPORTER
-            value: none
-          - name: OTEL_TRACES_EXPORTER
-            value: otlp
-          - name: HOST_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.hostIP
-          - name: OTEL_EXPORTER_OTLP_ENDPOINT
-            value: http://$(HOST_IP):4317
-          {{- end }}
-          - name: SPRING_PROFILES_ACTIVE
-            value: {{ .Values.env }}
-          - name: CONSUL_ACL_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret }}
-                key: CONSUL_ACL_TOKEN
-          - name: CONSUL_HOST
-            value: consul-redirector.consul
-          {{- range $.Values.slotbooking_analytics.extra_secrets }}
-          - name: {{ . }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $.Values.secret }}
-                key: {{ . }}
-          {{- end }}
-          - name: KAFKA_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret }}
-                key: KAFKA_PASSWORD
-          ports:
-            - name: http
-              containerPort: 8080
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: http
-            initialDelaySeconds: 300
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: http
-          resources:
-            requests:
-              cpu: 100m
-              memory: 768Mi
-            limits:
-              memory: 768Mi
+      - name: {{ .Values.slotbooking_analytics.name }}
+        securityContext:
+          allowPrivilegeEscalation: false
+        image: "{{ .Values.slotbooking_analytics.image.repository }}:{{ .Values.slotbooking_analytics.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
+          value: "true"
+        {{- if $.Values.enable_tracing }}
+        - name: JAVA_TOOL_OPTIONS
+          value: '-javaagent:/opt/opentelemetry-javaagent-all.jar'
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.name={{ $.Values.env }}-{{ $.Chart.Name }}-{{ .Values.slotbooking_analytics.name }},job={{ $.Values.env }}-{{ $.Chart.Name }}/{{ .Values.slotbooking_analytics.name }}
+        - name: OTEL_METRICS_EXPORTER
+          value: none
+        - name: OTEL_TRACES_EXPORTER
+          value: otlp
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://$(HOST_IP):4317
+        {{- end }}
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ .Values.env }}
+        - name: CONSUL_ACL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret }}
+              key: CONSUL_ACL_TOKEN
+        - name: CONSUL_HOST
+          value: consul-redirector.consul
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret }}
+              key: DB_PASSWORD
+        {{- range $.Values.slotbooking_analytics.extra_secrets }}
+        - name: {{ . }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $.Values.secret }}
+              key: {{ . }}
+        {{- end }}
+        - name: KAFKA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret }}
+              key: KAFKA_PASSWORD
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: http
+          initialDelaySeconds: 300
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: http
+        resources:
+          requests:
+            cpu: 100m
+            memory: 768Mi
+          limits:
+            memory: 768Mi
