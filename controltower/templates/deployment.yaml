@@ -28,7 +28,7 @@ spec:
         {{- if and ( $.Values.global.enable_metrics ) ( or ( eq $service "express" ) ( eq $service "skeda" ) ) }}
         prometheus.io/scrape: 'true'
         prometheus.io/path: '/metrics'
-        prometheus.io/port: '8080'
+        prometheus.io/port: '9090'
         {{- else }}
         prometheus.io/scrape: 'false'
         {{- end }}
