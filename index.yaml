@@ -200,6 +200,16 @@ entries:
     version: 1.0.6
   analytics:
   - apiVersion: v2
+    created: "2022-06-01T11:05:26.550992911Z"
+    description: SupplyStack - Analytics
+    digest: f1df01c7aa83c12010d6975ad520292344afd67aff55068a072e388a1548f135
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: analytics
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/analytics-1.21.1/analytics-1.21.1.tgz
+    version: 1.21.1
+  - apiVersion: v2
     created: "2022-03-24T12:56:28.68326714Z"
     description: SupplyStack - Analytics
     digest: 091ea183e8c9df7ffcd482db9185187de081318f8c6d003f98dd4188cb612bc0
@@ -1599,4 +1609,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2022-05-31T13:16:31.561231584Z"
+generated: "2022-06-01T11:05:27.801516871Z"
