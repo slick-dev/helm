@@ -10,6 +10,9 @@ spec:
   - name: http
     port: 8080
     targetPort: http
+  - name: actuator
+    port: 9090
+    targetPort: actuator
   selector:
     app.kubernetes.io/name: {{ .Values.analytics_service.name }}
 ---
@@ -25,6 +28,9 @@ spec:
   - name: http
     port: 8080
     targetPort: http
+  - name: actuator
+    port: 9090
+    targetPort: actuator
   selector:
     app.kubernetes.io/name: {{ .Values.api_gateway.name }}
 ---
@@ -50,5 +56,8 @@ spec:
   - name: http
     port: 8080
     targetPort: http
+  - name: actuator
+    port: 9090
+    targetPort: actuator
   selector:
     app.kubernetes.io/name: {{ .Values.portal.name }}
