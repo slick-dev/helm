@@ -45,3 +45,16 @@ spec:
           serviceName: {{ .Values.portal.name }}
           servicePort: http
         {{- end }}
+      - path: /actuator/health
+        {{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.portal.name }}
+            port:
+              name: actuator
+        {{- else }}
+        backend:
+          serviceName: {{ .Values.portal.name }}
+          servicePort: actuator
+        {{- end }}

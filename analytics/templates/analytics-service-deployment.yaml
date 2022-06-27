@@ -19,7 +19,9 @@ spec:
       annotations:
         ad.datadoghq.com/{{ .Values.analytics_service.name }}.logs: '[{"service":"{{ .Chart.Name }}", "source":"{{ .Values.analytics_service.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Chart.Name }}", "source":"{{ .Values.analytics_service.name }}"}'
-        prometheus.io/scrape: "false"
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '9090'
         supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.analytics_service.name }}
@@ -101,16 +103,17 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-              protocol: TCP
+            - name: actuator
+              containerPort: 9090
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: http
+              port: actuator
             initialDelaySeconds: 300
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: http
+              port: actuator
           resources:
             requests:
               cpu: 100m
