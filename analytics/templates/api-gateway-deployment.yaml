@@ -19,7 +19,9 @@ spec:
       annotations:
         ad.datadoghq.com/{{ .Values.api_gateway.name }}.logs: '[{"service":"{{ .Chart.Name }}", "source":"{{ .Values.api_gateway.name }}"}]'
         ad.datadoghq.com/tags: '{"env": "{{ .Values.env }}", "service":"{{ .Chart.Name }}", "source":"{{ .Values.api_gateway.name }}"}'
-        prometheus.io/scrape: "false"
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '9090'
         supplystack.io/env: {{ .Values.env }}
       labels:
         app.kubernetes.io/name: {{ .Values.api_gateway.name }}
