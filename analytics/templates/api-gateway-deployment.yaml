@@ -92,7 +92,6 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-          ports:
             - name: actuator
               containerPort: 9090
               protocol: TCP
