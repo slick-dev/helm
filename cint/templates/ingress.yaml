@@ -53,7 +53,7 @@ spec:
           servicePort: http
         {{- end }}
       - path: /actuator/health
-        {{- if semverCompare ">=1.19" .Capabilities.KubeVersion.GitVersion }}
+        {{- if semverCompare ">=1.19" $.Capabilities.KubeVersion.GitVersion }}
         pathType: Prefix
         backend:
           service:
