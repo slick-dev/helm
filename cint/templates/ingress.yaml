@@ -52,6 +52,19 @@ spec:
           serviceName: {{ $service }}
           servicePort: http
         {{- end }}
+      - path: /actuator/health
+        {{- if semverCompare ">=1.19" $.Capabilities.KubeVersion.GitVersion }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $service }}
+            port:
+              name: actuator
+        {{- else }}
+        backend:
+          serviceName: {{ $service }}
+          servicePort: actuator
+        {{- end }}
   {{- if and ( eq $.Values.global.env "prod" ) ( $.Values.global.legacy_prod_url ) }}
   - host: {{ $.Values.global.legacy_prod_url }}
     http:

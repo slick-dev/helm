@@ -28,6 +28,12 @@ spec:
     targetPort: http
     protocol: TCP
     name: http
+  {{- if eq $service "cint-service" }}
+  - port: 9090
+    targetPort: actuator
+    protocol: TCP
+    name: actuator
+  {{- end }}
   selector:
     app.kubernetes.io/name: {{ $service }}
 {{- end }}

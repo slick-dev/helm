@@ -21,7 +21,9 @@ spec:
   template:
     metadata:
       annotations:
-        prometheus.io/scrape: 'false'
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '9090'
         ad.datadoghq.com/tags: '{"env": "{{ $.Values.global.env }}", "service":"cint", "source":"{{ $service }}"}'
         ad.datadoghq.com/{{ $service }}.logs: '[{"service":"cint", "source":"{{ $service }}"}]'
         supplystack.io/env: {{ $.Values.global.env }}
@@ -76,6 +78,8 @@ spec:
         - name: http
           containerPort: 8080
           protocol: TCP
+        - containerPort: 9090
+          name: actuator
         {{- end }}
         env:
         - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
@@ -159,11 +163,11 @@ spec:
         readinessProbe:
           httpGet:
             path: /actuator/health
-            port: 8080
+            port: actuator
         livenessProbe:
           httpGet:
             path: /actuator/health
-            port: 8080
+            port: actuator
           initialDelaySeconds: 900
 {{- end }}
 {{- end }}
