@@ -1,0 +1,7 @@
+apiVersion: v2
+name: grafana-agent
+description: Grafana Agent as used within SupplyStack
+type: application
+icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+version: 0.0.1
+

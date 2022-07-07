@@ -1,0 +1,100 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: agent-statefulset
+  namespace: grafana-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: grafana-agent
+  serviceName: grafana-agent
+  template:
+    metadata:
+      labels:
+        name: grafana-agent
+      annotations:
+        supplystack.io/env: cluster
+    spec:
+      serviceAccount: grafana-agent
+      nodeSelector:
+        lifecycle: Ec2Spot-graviton
+      tolerations:
+      - key: spotInstanceArm
+        operator: Equal
+        value: tolerate
+        effect: NoSchedule
+      containers:
+      - args:
+        - -config.file=/etc/agent/agent.yaml
+        - -config.expand-env
+        - -enable-features=integrations-next
+        command:
+        - /bin/agent
+        env:
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sealed-secret
+              key: API_KEY
+        - name: CLUSTER
+          value: {{ .Values.cluster }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: IfNotPresent
+        name: agent-statefulset
+        ports:
+        - containerPort: 8080
+          name: http-metrics
+        volumeMounts:
+        - name: wal
+          mountPath: /srv/grafana-agent/wal
+        - name: eventhandler-cache
+          mountPath: /etc/eventhandler
+        - mountPath: /etc/agent
+          name: agent-statefulset
+        resources:
+          requests:
+            cpu: 50m
+            memory: 1024Mi
+          limits:
+            memory: 1024Mi
+      volumes:
+      - configMap:
+          name: agent-statefulset
+        name: agent-statefulset
+      - name: wal
+        persistentVolumeClaim:
+          claimName: wal
+      - name: eventhandler-cache
+        persistentVolumeClaim:
+          claimName: eventhandler-cache
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: wal
+      namespace: grafana-agent
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: eventhandler-cache
+      namespace: grafana-agent
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi

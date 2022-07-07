@@ -1,0 +1,189 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agent-statefulset
+  namespace: grafana-agent
+data:
+  agent.yaml: |
+    server:
+      http_listen_port: 8080
+      log_level: warn
+    integrations:
+      eventhandler:
+        cache_path: "/etc/eventhandler/eventhandler.cache"
+        logs_instance: "default"
+    logs:
+      configs:
+      - name: default
+        clients:
+        - url: {{ .Values.logs.url }}
+          basic_auth:
+            username: {{ .Values.logs.username }}
+            password: ${API_KEY}
+          external_labels:
+            cluster: {{ .Values.cluster }}
+            job: integrations/kubernetes/eventhandler
+        positions:
+          filename: /tmp/grafana-agent/positions
+    metrics:
+      wal_directory: /srv/grafana-agent/wal
+      global:
+        scrape_interval: 60s
+        external_labels:
+          cluster: {{ .Values.cluster }}
+      configs:
+      - name: integrations
+        remote_write:
+        - url: {{ .Values.metrics.url }}
+          basic_auth:
+            username: {{ .Values.metrics.username }}
+            password: ${API_KEY}
+        scrape_configs:
+        - job_name: integrations/kubernetes/cadvisor
+          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+          kubernetes_sd_configs:
+            - role: node
+          metric_relabel_configs:
+            - action: drop
+              regex: container_([a-z_]+);
+              source_labels:
+                - __name__
+                - image
+            - source_labels: [__name__]
+              regex: container_(fs|blkio|network)_.*
+              action: drop           
+            - source_labels: [__name__]
+              regex: container_(processes|sockets|last_seen|memory_failures_total|tasks_state|cpu_load_average_10s)
+              action: drop
+          relabel_configs:
+            - replacement: kubernetes.default.svc.cluster.local:443
+              target_label: __address__
+            - regex: (.+)
+              replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor
+              source_labels:
+                - __meta_kubernetes_node_name
+              target_label: __metrics_path__
+          scheme: https
+          tls_config:
+              ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+              insecure_skip_verify: false
+              server_name: kubernetes
+        # - job_name: integrations/kubernetes/kubelet
+        #   bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        #   kubernetes_sd_configs:
+        #     - role: node
+        #   relabel_configs:
+        #     - replacement: kubernetes.default.svc.cluster.local:443
+        #       target_label: __address__
+        #     - regex: (.+)
+        #       replacement: /api/v1/nodes/$1/proxy/metrics
+        #       source_labels:
+        #         - __meta_kubernetes_node_name
+        #       target_label: __metrics_path__
+        #   metric_relabel_configs:
+        #     - source_labels: [__name__]
+        #       regex: go_.*
+        #       action: drop
+        #     - source_labels: [__name__]
+        #       regex: storage_.*
+        #       action: drop
+        #     - source_labels: [__name__]
+        #       regex: kubelet_(runtime_operations|network|docker_operations|cgroup|http|pleg)_.*
+        #       action: drop
+        #     - source_labels: [__name__]
+        #       regex: rest_.*
+        #       action: drop
+        #     - source_labels: [__name__]
+        #       regex: authentication_.*
+        #       action: drop
+        #     - source_labels: [__name__]
+        #       regex: apiserver_.*
+        #       action: drop
+        #   scheme: https
+        #   tls_config:
+        #       ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        #       insecure_skip_verify: false
+        #       server_name: kubernetes
+        - job_name: 'kubernetes-pods'
+          kubernetes_sd_configs:
+            - role: pod
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+              action: keep
+              regex: true
+            - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
+              action: replace
+              regex: (https?)
+              target_label: __scheme__
+            - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+              action: replace
+              target_label: __metrics_path__
+              regex: (.+)
+            - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+              action: replace
+              regex: ([^:]+)(?::\d+)?;(\d+)
+              replacement: $1:$2
+              target_label: __address__
+            - action: labelmap
+              regex: __meta_kubernetes_pod_label_(.+)
+            - source_labels: [__meta_kubernetes_namespace]
+              action: replace
+              target_label: kubernetes_namespace
+            - source_labels: [__meta_kubernetes_pod_name]
+              action: replace
+              target_label: kubernetes_pod_name
+            - source_labels: [__meta_kubernetes_pod_annotation_supplystack_io_env]
+              action: replace
+              target_label: env
+            - source_labels: [__meta_kubernetes_pod_annotation_supplystack_io_customer]
+              action: replace
+              target_label: customer
+            - source_labels: [__meta_kubernetes_pod_annotation_app_kubernetes_io_name]
+              action: replace
+              target_label: app_kubernetes_io_name
+            - source_labels: [__meta_kubernetes_pod_annotation_app_kubernetes_io_part_of]
+              action: replace
+              target_label: app_kubernetes_io_part_of
+            - source_labels: [__meta_kubernetes_pod_phase]
+              regex: Pending|Succeeded|Failed
+              action: drop
+            - source_labels: [__address__]
+              target_label: cluster
+              replacement: {{ .Values.cluster }}
+          metric_relabel_configs:
+            - source_labels: [__name__]
+              regex: nginx_ingress.*
+              action: drop
+            - source_labels: [__name__]
+              regex: go_.*
+              action: drop
+            - source_labels: [__name__]
+              regex: rest_.*
+              action: drop
+            - source_labels: [__name__]
+              regex: kube_(replicaset|secret)_.*
+              action: drop
+            - source_labels: [__name__]
+              regex: kube_pod_(info|annotations|labels|owner)
+              action: drop
+            - source_labels: [__name__]
+              regex: kube_pod_status_(ready|reason|scheduled)
+              action: drop
+            - source_labels: [__name__]
+              regex: kube_deployment_status_condition
+              action: drop
+            - source_labels: [__name__]
+              regex: kminion_kafka_topic_partition_high_water_mark
+              action: drop
+            - source_labels: [__name__]
+              regex: kminion_kafka_topic_partition_low_water_mark
+              action: drop
+            - source_labels: [__name__]
+              regex: apiserver_.*
+              action: drop
+            - source_labels: [namespace, tag_env, tag_customer]
+              separator: "@"
+              regex: "@(.*)@(.*)"
+              replacement: ${1}-controltower-${2}
+              target_label: namespace
+              action: replace
