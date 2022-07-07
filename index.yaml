@@ -1156,6 +1156,17 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/controltower-1.0.7/controltower-1.0.7.tgz
     version: 1.0.7
+  grafana-agent:
+  - apiVersion: v2
+    created: "2022-07-07T12:50:37.79200767Z"
+    description: Grafana Agent as used within SupplyStack
+    digest: f3b7300ce2fa8888e590647a2f7bf423fe08368623448eccb15ccf9d649a9111
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: grafana-agent
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/grafana-agent-0.0.1/grafana-agent-0.0.1.tgz
+    version: 0.0.1
   invoice-matching:
   - apiVersion: v2
     created: "2021-12-20T11:24:18.212250389Z"
@@ -1679,4 +1690,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2022-07-07T06:32:12.487448362Z"
+generated: "2022-07-07T12:50:38.314703631Z"
