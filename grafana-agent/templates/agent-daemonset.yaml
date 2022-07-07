@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: agent-daemonset
-  namespace: grafana-agent
+  namespace: {{ $.Release.Namespace }}
 spec:
   minReadySeconds: 10
   selector:
