@@ -73,14 +73,12 @@ spec:
         image: "{{ $config.image.repository }}:{{ $config.image.tag }}"
         securityContext:
           allowPrivilegeEscalation: false
-        {{- if $config.create_service }}
         ports:
         - name: http
           containerPort: 8080
           protocol: TCP
         - containerPort: 9090
           name: actuator
-        {{- end }}
         env:
         - name: LOG4J_FORMAT_MSG_NO_LOOKUPS
           value: "true"
