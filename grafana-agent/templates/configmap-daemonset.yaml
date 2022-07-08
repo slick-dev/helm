@@ -14,7 +14,6 @@ data:
                 password: ${API_KEY}
               external_labels:
                 cluster: ${CLUSTER}
-                hostname: ${HOSTNAME}
           name: default
           positions:
             filename: /tmp/grafana-agent/positions/default.yml
