@@ -18,13 +18,14 @@ spec:
         supplystack.io/env: cluster
     spec:
       serviceAccount: grafana-agent
+      {{- with .Values.statefulset.nodeSelector }}
       nodeSelector:
-        lifecycle: Ec2Spot-graviton
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.statefulset.tolerations }}
       tolerations:
-      - key: spotInstanceArm
-        operator: Equal
-        value: tolerate
-        effect: NoSchedule
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - args:
         - -config.file=/etc/agent/agent.yaml
