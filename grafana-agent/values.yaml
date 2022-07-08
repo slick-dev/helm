@@ -11,3 +11,6 @@ metrics:
 traces:
   endpoint: tempo-eu-west-0.grafana.net:443
   username: 157193
+statefulset:
+  nodeSelector: {}
+  tolerations: []
