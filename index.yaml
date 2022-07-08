@@ -1158,6 +1158,16 @@ entries:
     version: 1.0.7
   grafana-agent:
   - apiVersion: v2
+    created: "2022-07-08T07:31:26.828897199Z"
+    description: Grafana Agent as used within SupplyStack
+    digest: 3f0e69ce004ca20b6aa892229dac9d3bbbb39ce0a9804147662ffac40420ae44
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: grafana-agent
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/grafana-agent-0.0.5/grafana-agent-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
     created: "2022-07-08T07:12:52.664152145Z"
     description: Grafana Agent as used within SupplyStack
     digest: 0a4a3b467c08f608313a05b665821c00d5dcfcf2260f2592d37c270e8d4bb46f
@@ -1720,4 +1730,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2022-07-08T07:12:53.213957755Z"
+generated: "2022-07-08T07:31:27.361730107Z"
