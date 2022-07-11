@@ -1,0 +1,6 @@
+apiVersion: v2
+name: api-hub
+description: SupplyStack - Api-Hub
+type: application
+icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+version: 1.0.0

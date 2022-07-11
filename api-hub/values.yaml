@@ -1,0 +1,36 @@
+global: 
+  env: dev
+  platform: amd64
+  secret: sealed-secret
+  serviceaccount:
+    aws_role_arn: "replaceme"
+  ingress_service: frontend
+  enable_tracing: false
+  postgres:
+    datasource_url: replaceme
+  kafka:
+    brokers: 01.kafka-broker.supplystack.io:9091,02.kafka-broker.supplystack.io:9091,03.kafka-broker.supplystack.io:9091
+    schema_registry: https://01.schema-registry.supplystack.io:8081,https://02.schema-registry.supplystack.io:8081,https://03.schema-registry.supplystack.io:8081
+    security_protocol: SASL_SSL
+    sasl_mechanism: SCRAM-SHA-256
+
+backend:
+  create_service: true
+  port: 8080
+  mem_limit: 1024Mi
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/api-hub/backend
+    tag: replaceme
+
+frontend:
+  create_service: true
+  mem_limit: 128Mi
+  port: 8080
+  probe_path: /favicon.ico
+  user: 101
+  group: 101
+  fsgroup: 101
+  image:
+    repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/api-hub/frontend
+    tag: replaceme
+
