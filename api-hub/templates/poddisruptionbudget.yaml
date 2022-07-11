@@ -1,0 +1,15 @@
+{{- range $service, $config := .Values }}
+{{- if and ( ne $service "global" ) ( eq $.Values.global.env "prod" ) }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ $service }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $service }}
+{{- end }}
+{{- end }}

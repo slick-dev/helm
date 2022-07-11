@@ -1,0 +1,33 @@
+{{- range $service, $config := .Values }}
+{{- if and ( ne $service "global" ) ( $config.create_service ) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ $.Release.Namespace }}
+  name: {{ $service }}
+  labels:
+    helm.sh/chart: {{ printf "%s-%s" $.Chart.Name $.Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+    app.kubernetes.io/name: {{ $service }}
+  annotations:
+    {{- if eq $service $.Values.global.ingress_service }}
+    consul.hashicorp.com/service-sync: "true"
+    consul.hashicorp.com/service-name: {{ $.Chart.Name }}
+    {{- if eq $.Values.global.env "prod" }}
+    consul.hashicorp.com/service-meta-url: {{ $.Values.global.production_url }}
+    {{- else }}
+    consul.hashicorp.com/service-meta-url: {{ $.Chart.Name }}.{{ $.Values.global.env }}.supplystack.com
+    {{- end }}
+    consul.hashicorp.com/service-meta-customer: supplystack
+    consul.hashicorp.com/service-meta-env: {{ $.Values.global.env }}
+    {{- end}}
+spec:
+  ports:
+  - port: {{ $config.port }}
+    targetPort: http
+    name: http
+  selector:
+    app.kubernetes.io/name: {{ $service }}
+{{- end }}
+{{- end }}
