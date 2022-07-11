@@ -369,6 +369,17 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/analytics-1.0.3/analytics-1.0.3.tgz
     version: 1.0.3
+  api-hub:
+  - apiVersion: v2
+    created: "2022-07-11T13:00:01.867324657Z"
+    description: SupplyStack - Api-Hub
+    digest: edd7212e2b89015a34c045c68fdf587a0881a92b3d88859441eeedf422f443de
+    icon: https://slick-dev.github.io/helm/icons/supplystack.jpg
+    name: api-hub
+    type: application
+    urls:
+    - https://github.com/slick-dev/helm/releases/download/api-hub-1.0.0/api-hub-1.0.0.tgz
+    version: 1.0.0
   carrier-portal:
   - apiVersion: v2
     created: "2022-05-09T11:39:22.64276877Z"
@@ -1730,4 +1741,4 @@ entries:
     urls:
     - https://github.com/slick-dev/helm/releases/download/slotbooking-1.0.19/slotbooking-1.0.19.tgz
     version: 1.0.19
-generated: "2022-07-08T07:31:27.361730107Z"
+generated: "2022-07-11T13:00:03.665252508Z"
