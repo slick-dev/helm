@@ -38,6 +38,7 @@ bas-service:
   - DB_BAS_PASSWORD
 
 carloc-service:
+  create_service: true
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/carloc-service
   extra_secrets:
@@ -98,7 +99,7 @@ dpd-be-service:
   image:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/dpd-be-service
   extra_secrets:
-    - DB_DPDBE_PASSWORD
+  - DB_DPDBE_PASSWORD
 
 dpd-ch-service:
   image:
@@ -197,6 +198,11 @@ idealogistic-service:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/idealogistic-service
   extra_secrets:
   - DB_IDEALOGISTIC_PASSWORD
+  extra_env:
+  - name: TRANSICS_SERVICE_HOST
+    value: "http://transics-service:8080"
+  - name: CARLOC_SERVICE_HOST
+    value: "http://carloc-service:8080"
 
 jost-service:
   image:
@@ -209,9 +215,6 @@ kuehnenagel-service:
     repository: 748094632676.dkr.ecr.eu-west-1.amazonaws.com/cint/kuehnenagel-service
   extra_secrets:
   - DB_KUEHNENAGEL_PASSWORD
-  extra_env:
-  - name: KUEHNENAGEL-SERVICE_SCHEDULER_CONSUMER_CRON
-    value: 0 */5 * * * *
 
 kuehnenagel-sftp-service:
   image:
